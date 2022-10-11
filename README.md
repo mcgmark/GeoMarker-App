@@ -22,4 +22,4 @@ This app is the semester assignment for Georgian College Comp2084 Server-Side Sc
 This was built on the ASP.Net framework and implements user input, user authentication, MS SQL database CRUD, and Map API. This project also implements Javascript and Bootstrap.
 
 ---
-### Live site: http://mcgmark-001-site1.dtempurl.com/geomarker/
+### Live site: http://www.geomarker.ca/
