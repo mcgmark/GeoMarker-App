@@ -7,10 +7,12 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/GeoMarker.styles.css" asp-append-version="true" />
+    <script type='text/javascript' src='https://sdk.virtualearth.net/api/maps/mapcontrol?callback=GetMap&key=AsUyDclFTSh-puYhT6diWZ_GE9ZgYQyqTtBn99ng2JqipjZdFgItrg-OskntkyJR' async defer></script>
+    <script src="https://kit.fontawesome.com/a77035a0c0.js" crossorigin="anonymous"></script>
 </head>
-<body>
+<body class="container-fluid col-xl-8">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-info border-bottom p-4">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GeoMarker</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -26,7 +28,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Markers" asp-action="Index">Markers</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Favorites" asp-action="Index">Favorites</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -34,14 +36,15 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="container-fluid">
+        <main role="main">
+            <div id="myMap"></div>
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
+    <footer class="border-top text-muted p-3">
+        <div class="container-fluid">
             &copy; 2022 - GameHub - Mark McGuigan 020024941 - Server-Side Scripting-ASP.NET - COMP2084 Fall 2022 - <a href="https://github.com/mcgmark/GeoMarker" target="_blank">View on Github</a> - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>

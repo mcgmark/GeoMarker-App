@@ -14,5 +14,6 @@ namespace GeoMarker.Data
         // reference each model as DBSet objects
         public DbSet<Marker> Markers { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }

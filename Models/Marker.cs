@@ -12,11 +12,18 @@ namespace GeoMarker.Models
 
         [Required]
         [MaxLength(255)]
-        public string Title { get; set; }
+        public string? Title { get; set; }
+
+        // FK for Category
+        [Display(Name = "Category")]
+        public int CategoryId { get; set; }
+
+        // ref to parent model
+        public Category? Category { get; set; }
 
         [Required]
         [MaxLength(500)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         public string? Photo { get; set; }
 
@@ -30,7 +37,5 @@ namespace GeoMarker.Models
         [Display(Name = "Date")]
         public DateTime CreatedDate { get; set; }
 
-        //ref to child model - 1 Post can be in many post Likes
-        public List<Favorite>? Likes { get; set; }
     }
 }
