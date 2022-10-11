@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using GeoMarker.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace GeoMarker.Data
@@ -9,5 +10,9 @@ namespace GeoMarker.Data
             : base(options)
         {
         }
+
+        // reference each model as DBSet objects
+        public DbSet<Marker> Markers { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
     }
 }
