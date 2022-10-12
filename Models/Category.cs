@@ -8,6 +8,7 @@ namespace GeoMarker.Models
 
         [Required]
         [MaxLength(50)]
+        [Display(Name = "Category")]
         public string? Name { get; set; }
 
         // ref to parent - 1 Category can have many Markers

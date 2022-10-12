@@ -1,14 +1,16 @@
 ﻿@model GeoMarker.Models.Category
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Category Details : GeoMarker";
+    ViewData["Heading"] = "Category Details";
 }
 
-<h1>Details</h1>
+<div class="d-flex align-items-center justify-content-end p-2 mb-4 med-gray gm-lower">
+    <div class=""><a asp-action="Edit" asp-route-id="@Model?.CategoryId">Edit</a></div>
+    <div class="border-primary"><a class="p-2 display-7" asp-action="Index"><i class="fa-solid fa-map-location"></i>Back to List</a></div>
+</div>
 
 <div>
-    <h4>Category</h4>
-    <hr />
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
@@ -18,7 +20,4 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.CategoryId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+

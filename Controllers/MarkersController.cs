@@ -57,10 +57,17 @@ namespace GeoMarker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MarkerId,UserId,Title,CategoryId,Description,Photo,Address,Latitude,Longitude,CreatedDate")] Marker marker)
+        public async Task<IActionResult> Create([Bind("MarkerId,UserId,Title,CategoryId,Description,Address,Latitude,Longitude,CreatedDate")] Marker marker, IFormFile? Photo)
         {
             if (ModelState.IsValid)
             {
+
+                if (Photo != null)
+                {
+                    var fileName = UploadPhoto(Photo);
+                    marker.Photo = fileName;
+                }
+
                 _context.Add(marker);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -163,6 +170,30 @@ namespace GeoMarker.Controllers
         private bool MarkerExists(int id)
         {
           return _context.Markers.Any(e => e.MarkerId == id);
+        }
+
+        private static string UploadPhoto(IFormFile Photo)
+        {
+            // get temp location of uploaded photo
+            var filePath = Path.GetTempFileName();
+
+            // use Globally Unique Identifier class AKA GUID to ensure we name the photo a unique name
+            // myPhoto.jpg => 34jh324jh34jh34-myPhoto.jpg
+            var fileName = Guid.NewGuid() + "-" + Photo.FileName;
+
+            // set the destination path to wwwroot/img/products
+            // This must be dynamic so it works on any server as each server uses its own directory path
+            var uploadPath = System.IO.Directory.GetCurrentDirectory() + "\\wwwroot\\img\\markers\\" + fileName;
+
+            // use a filestream to copy the upload to this folder 
+            using (var stream = new FileStream(uploadPath, FileMode.Create))
+            {
+                Photo.CopyTo(stream);
+            }
+            // send back the new unique file name
+
+            return fileName;
+
         }
     }
 }

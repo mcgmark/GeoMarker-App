@@ -1,14 +1,17 @@
 ﻿@model GeoMarker.Models.Marker
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Marker : GeoMarker";
+    ViewData["Heading"] = "Edit Marker";
+    ViewData["PageType"] = "cancel";
 }
 
-<h1>Edit Marker</h1>
+<div class="d-flex align-items-center justify-content-end p-2 mb-4 med-gray gm-lower">
+    <div class="border-primary"><a class="p-2 display-7 text-danger" asp-action="Index"><i class="fa-regular fa-rectangle-xmark"></i>Cancel</a></div>
+</div>
 
-<hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="p-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="MarkerId" />
@@ -62,10 +65,6 @@
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

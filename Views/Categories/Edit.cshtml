@@ -1,15 +1,16 @@
 ﻿@model GeoMarker.Models.Category
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Category : GeoMarker";
+    ViewData["Heading"] = "Edit Category";
 }
 
-<h1>Edit</h1>
+<div class="d-flex align-items-center justify-content-end p-2 mb-4 med-gray gm-lower">
+    <div class="border-primary"><a class="p-2 display-7 text-danger" asp-action="Index"><i class="fa-regular fa-rectangle-xmark"></i>Cancel</a></div>
+</div>
 
-<h4>Category</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
+    <div>
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="CategoryId" />
@@ -23,10 +24,6 @@
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

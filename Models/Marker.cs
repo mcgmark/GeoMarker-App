@@ -11,6 +11,7 @@ namespace GeoMarker.Models
         public int UserId { get; set; }
 
         [Required]
+        [MinLength(7, ErrorMessage = "Please make a longer title")]
         [MaxLength(255)]
         public string? Title { get; set; }
 
@@ -22,6 +23,7 @@ namespace GeoMarker.Models
         public Category? Category { get; set; }
 
         [Required]
+        [MinLength(50, ErrorMessage = "Please make a longer description")]
         [MaxLength(500)]
         public string? Description { get; set; }
 

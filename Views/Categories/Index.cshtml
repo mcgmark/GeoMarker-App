@@ -1,14 +1,15 @@
 ﻿@model IEnumerable<GeoMarker.Models.Category>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Marker Categories : GeoMarker";
+    ViewData["Heading"] = "Marker Categories";
+    ViewData["PageType"] = "details";
 }
+<div class="d-flex align-items-center justify-content-end p-2 mb-4 med-gray gm-lower">
+    <div class="border-primary"><a class="p-2 display-7" asp-action="Create"><i class="fa-solid fa-list"></i>Create New Category</a></div>
+</div>
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="col-6 m-5">
 <table class="table">
     <thead>
         <tr>
@@ -33,3 +34,4 @@
 }
     </tbody>
 </table>
+</div>

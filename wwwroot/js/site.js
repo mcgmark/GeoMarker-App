@@ -18,8 +18,6 @@ function GetMap() {
         console.log(stringPathName);
         if (e.targetType == "map") {
 
-
-
             if (stringPathName == "/Markers" || stringPathName == "/Markers/Create" ) { 
             //Get map unit x,y
             var point = new Microsoft.Maps.Point(e.getX(), e.getY());
@@ -32,76 +30,27 @@ function GetMap() {
             if (map.entities.getLength() > 0) {
                 titleInput.focus();
                 return;
-            } else {
-
+            } else
+            {
                 map.entities.push(pushpin);
+
                 latitudeInput.value = location.latitude;
                 longitudeInput.value = location.longitude;
+
                 titleInput.focus();
 
-                if (!searchManager) {
-                    //Create an instance of the search manager and call the reverseGeocode function again.
-                    Microsoft.Maps.loadModule('Microsoft.Maps.Search', function () {
-                        searchManager = new Microsoft.Maps.Search.SearchManager(map);
-                        reverseGeocode();
-                    });
-                } else {
-                    var searchRequest = {
-                        location: map.getCenter(),
-                        callback: function (r) {
-                            //Tell the user the name of the result.
-                            alert(r.name);
-                        },
-                        errorCallback: function (e) {
-                            //If there is an error, alert the user about it.
-                            alert("Unable to reverse geocode location.");
-                        }
-                    };
-
-                    //Make the reverse geocode request.
-                    searchManager.reverseGeocode(searchRequest);
-                }
-
-            }
-
-            Microsoft.Maps.Events.addHandler(pushpin, 'click', function () {
+                Microsoft.Maps.Events.addHandler(pushpin, 'click', function () {
                
                     for (var i = map.entities.getLength() - 1; i >= 0; i--) {
                         var pushpin = map.entities.get(i);
                         if (pushpin instanceof Microsoft.Maps.Pushpin) {
                             map.entities.remove(pushpin);
                         }
-                    
-                }
-            });
+                    }
+                })
+            }
 
             }
         }
     });
-}
-
-function reverseGeocode() {
-    //If search manager is not defined, load the search module.
-    if (!searchManager) {
-        //Create an instance of the search manager and call the reverseGeocode function again.
-        Microsoft.Maps.loadModule('Microsoft.Maps.Search', function () {
-            searchManager = new Microsoft.Maps.Search.SearchManager(map);
-            reverseGeocode();
-        });
-    } else {
-        var searchRequest = {
-            location: map.getCenter(),
-            callback: function (r) {
-                //Tell the user the name of the result.
-                alert(r.name);
-            },
-            errorCallback: function (e) {
-                //If there is an error, alert the user about it.
-                alert("Unable to reverse geocode location.");
-            }
-        };
-
-        //Make the reverse geocode request.
-        searchManager.reverseGeocode(searchRequest);
-    }
 }
