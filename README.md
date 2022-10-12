@@ -6,7 +6,7 @@ Leave your mark!
 ## What?
 GeoMarker is an app created to allow you to post and view a location of something on a map.
 
-### What should I mark?
+### What can I mark?
 - Location of a hidden item.
 - A location special to you.
 - Where you lost or found something.
