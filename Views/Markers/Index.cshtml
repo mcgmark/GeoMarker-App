@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GeoMarker.Models.Marker>
+﻿@model List<GeoMarker.Models.Marker>
 
 @{
     ViewData["Title"] = "Markers : GeoMarker";
@@ -6,14 +6,15 @@
     ViewData["PageType"] = "index";
 }
 
-
-<div class="d-flex align-items-center justify-content-end p-2 mb-4 med-gray gm-lower">
-    <div class="border-primary"><a class="p-2 display-7" asp-action="Create"><i class="fa-solid fa-map-location"></i>Create New Marker</a></div>
+<div class="col-8 offset-1 p-2 mt-4">
+<h1 class="display-6">Markers</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin lorem ante, eget rutrum ligula sagittis eu. Vestibulum suscipit orci a nunc fringilla maximus.</p>
 </div>
 
-<div class="card-deck d-flex flex-wrap justify-content-center">
+<div class="card-deck d-flex flex-column align-content-stretch">
     @foreach (var item in Model) {
-        <div class="card m-5 gm-card col-3">
+        <div class="card gm-card col-7 offset-1 rounded mb-4 border-0  d-flex flex-row shadow-sm">
+            
             @if (item.Photo != null)
             {
                 <img class="card-img-top"  src="~/img/markers/@item.Photo" alt="Marker Photo" />
@@ -22,23 +23,22 @@
             {
                 <img class="card-img-top"  src="~/img/markers/placeholder.png" alt="Marker Photo" />
             }
-        <div class="card-body">
-                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
-                <p class="card-text">@Html.DisplayFor(modelItem => item.Description)</p>
-                <p>@Html.DisplayNameFor(model => model.Category): @Html.DisplayFor(modelItem => item.Category.Name)</p>
-                <p>@Html.DisplayNameFor(model => model.Address): @Html.DisplayFor(modelItem => item.Address)</p>
-                <p>@Html.DisplayNameFor(model => model.Latitude): @Html.DisplayFor(modelItem => item.Latitude)</p>
-                <p>@Html.DisplayNameFor(model => model.Longitude): @Html.DisplayFor(modelItem => item.Longitude)</p>
-                <p>@Html.DisplayFor(modelItem => item.UserId)</p>
-        </div>
-        <div class="card-footer">
-                <div>
-                    <a asp-action="Edit" asp-route-id="@item.MarkerId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.MarkerId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.MarkerId">Delete</a>
+           
+        <div class="card-body p-0">
+                <h5 class="card-title p-0 ps-2 m-0">@Html.DisplayFor(modelItem => item.Title)</h5>
+                <p class="card-text m-0 p-0 ps-2 small">@Html.DisplayFor(modelItem => item.UserName)</p>
+                <small class="text-muted p-0 ps-2">@Html.DisplayFor(modelItem => item.CreatedDate)</small>
+                <div class="col-12 bg-orange text-end">
+                    <div>
+                        @if (User.Identity?.Name == item.UserName || User.IsInRole("Administrator"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.MarkerId">Edit<i class="fa-solid fa-pencil"></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.MarkerId">Delete<i class="fa-regular fa-trash-can"></i></a>
+                        }
+                        <a class="p-0 text-white" asp-action="Details" asp-route-id="@item.MarkerId">View <i class="fa-solid fa-circle-arrow-right"></i></a>
+                    </div>
                 </div>
-                <small class="text-muted">@Html.DisplayFor(modelItem => item.CreatedDate)</small>
         </div>
-    </div>
+        </div>
     }
 </div>

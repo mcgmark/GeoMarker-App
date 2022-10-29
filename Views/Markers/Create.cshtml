@@ -6,20 +6,18 @@
     ViewData["PageType"] = "cancel";
 }
 
-<div class="d-flex align-items-center justify-content-end p-2 mb-4 med-gray gm-lower">
-    <div class="border-primary"><a class="p-2 display-7 text-danger" asp-action="Index"><i class="fa-regular fa-rectangle-xmark"></i>Cancel</a></div>
-</div>
-
-<div class="container">
+<div class="col-7 offset-1 mt-4">
 
 <div class="row">
     <div>
+            <h1 class="display-6">Markers</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin lorem ante, eget rutrum ligula sagittis eu. Vestibulum suscipit orci a nunc fringilla maximus.</p>
             <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
-                <span asp-validation-for="UserId" class="text-danger"></span>
+                
+                    <input asp-for="UserName" type="hidden" class="form-control" value="@User.Identity?.Name" readonly/>
+                <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
@@ -42,7 +40,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
+                <div id="searchBoxContainer"><input asp-for="Address" class="form-control" id="address" /></div>
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -55,13 +53,17 @@
                 <input asp-for="Longitude" class="form-control" id="longitude" />
                 <span asp-validation-for="Longitude" class="text-danger"></span>
             </div>
+            <div><a class="text-blue" href="#" id="lookupButton">Look Up</a></div>
+            <div><a href="#" class="text-blue"  id="currentButton">Current Location</a></div>
+                <div><a href="#" class="text-blue" id="resetAddress">Delete Marker</a></div>
             <div class="form-group">
-                <label asp-for="CreatedDate" class="control-label"></label>
-                <input asp-for="CreatedDate" class="form-control" />
+             
+                    <input asp-for="CreatedDate" class="form-control" value="@ViewData["CurrentDate"]" type="hidden" />
                 <span asp-validation-for="CreatedDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
+                <a class="p-2 display-7 text-danger" asp-action="Index"><i class="fa-regular fa-rectangle-xmark"></i>Cancel</a>
             </div>
         </form>
     </div>

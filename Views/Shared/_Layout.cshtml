@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/GeoMarker.styles.css" asp-append-version="true" />
-    <script type='text/javascript' src='https://sdk.virtualearth.net/api/maps/mapcontrol?callback=GetMap&key=AsUyDclFTSh-puYhT6diWZ_GE9ZgYQyqTtBn99ng2JqipjZdFgItrg-OskntkyJR' async defer></script>
+    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?callback=GetMap&key=AsUyDclFTSh-puYhT6diWZ_GE9ZgYQyqTtBn99ng2JqipjZdFgItrg-OskntkyJR' async defer></script>
     <script src="https://kit.fontawesome.com/a77035a0c0.js" crossorigin="anonymous"></script>
 </head>
-<body class="container-fluid col-xl-8">
-    <header class="mt-3">
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-info border-bottom p-2">
+<body class="container-fluid">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-orange">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/geomarker-logo.svg" alt="GeoMarker Logo" /></a>
+                <a class="navbar-brand ps-5" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/geomarker-logo.svg" alt="GeoMarker Logo" /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -22,35 +22,40 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-white" asp-area="" asp-controller="Markers" asp-action="Index"><i class="fa-solid fa-location-pin"></i>View Markers</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Markers" asp-action="Index">Markers</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
-                        </li>
+                            <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Categories" asp-action="Index"><i class="fa-solid fa-list"></i>Categories</a>
+                            </li>
+                            <li>
+                            <a class="nav-link text-white" asp-controller="Markers" asp-action="Create"><i class="fa-solid fa-map-location"></i>Create New Marker</a>
+                            </li>
                     </ul>
+                              
                     <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
     </header>
     <div class="container-fluid">
-        <main role="main">
-            <div id="myMap"></div>
-            <div class="bg-info d-flex align-items-center p-3 gm-head gm-head">
-                <div><h1><i class="fa-sharp fa-solid fa-location-dot"></i>@ViewData["Heading"]</h1></div>
+        <main role="main" class="container-fluid">
+            <div class="row flex-md-nowrap bg-lightgrey">
+                <div class="sidebar min-vh-100 col-xs-12 col-md-4 col-lg-4 col-xl-5 order-last order-md-first">
+                    @RenderBody()
+                </div>
+                <div class="col-xs-12 col-md-8 col-lg-8 col-xl-7">
+                    <div id="myMap"></div>
+                    <footer class="footer position-sticky bottom-0 text-center p-1 text-white small bg-orange">
+
+                        &copy; 2022 - GeoMarker - Mark McGuigan 020024941 - Server-Side Scripting-ASP.NET - COMP2084 Fall 2022 - <a href="https://github.com/mcgmark/GeoMarker" target="_blank" class="text-white">View on Github</a> - <a class="text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+
+                    </footer>
+                </div>
             </div>
-            @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top text-muted p-3 mt-4">
-        <div class="container-fluid">
-            &copy; 2022 - GameHub - Mark McGuigan 020024941 - Server-Side Scripting-ASP.NET - COMP2084 Fall 2022 - <a href="https://github.com/mcgmark/GeoMarker" target="_blank">View on Github</a> - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
+  
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

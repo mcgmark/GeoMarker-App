@@ -1,5 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using System.Web;
+using GeoMarker.Controllers;
+using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
+
 
 namespace GeoMarker.Models
 {
@@ -8,7 +13,7 @@ namespace GeoMarker.Models
         public int MarkerId { get; set; }
 
 
-        public int UserId { get; set; }
+        public string UserName { get; set; }
 
         [Required]
         [MinLength(7, ErrorMessage = "Please make a longer title")]
@@ -39,5 +44,10 @@ namespace GeoMarker.Models
         [Display(Name = "Date")]
         public DateTime CreatedDate { get; set; }
 
+    }
+
+    public class MarkerLists
+    {
+        public IEnumerable<Marker> MarkerList { get; set; }
     }
 }

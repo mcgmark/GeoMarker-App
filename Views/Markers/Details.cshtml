@@ -6,65 +6,40 @@
     ViewData["PageType"] = "";
   
 }
-<div class="d-flex align-items-center justify-content-end p-2 mb-4 med-gray gm-lower">
-    <div class=""><a asp-action="Edit" asp-route-id="@Model?.MarkerId"><i class="fa-solid fa-pencil"></i>Edit</a></div>
-    <div><a class="p-2 display-7" asp-action="Index"><i class="fa-solid fa-map-location"></i>Back to List</a></div>
+
+<div class="col-8 offset-1 p-2 mt-4">
+    <h1 class="display-6">Marker Details</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin lorem ante, eget rutrum ligula sagittis eu. Vestibulum suscipit orci a nunc fringilla maximus.</p>
 </div>
-<div>
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Category.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Photo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Photo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Latitude)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Latitude)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Longitude)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Longitude)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-    </dl>
+
+<div class="card col-7 offset-1">
+    @if (Model.Photo != null)
+    {
+        <img class="card-img-top-large" src="~/img/markers/@Model.Photo" alt="Marker Photo" />
+    }
+    else
+    {
+        <img class="card-img-top-large" src="~/img/markers/placeholder.png" alt="Marker Photo" />
+    }
+    <div class="card-body">
+        <h5 class="card-title">@Model.Title</h5>
+        <p class="card-text">@Model.Description</p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">@Model.UserName</li>
+        <li class="list-group-item">@Model.Category.Name</li>
+        <li class="list-group-item">@Model.Address</li>
+        <li class="list-group-item">@Model.Latitude</li>
+        <li class="list-group-item">@Model.Longitude</li>
+        <li class="list-group-item">@Model.CreatedDate</li>
+    </ul>
+    <div class="bg-orange p-1 d-flex justify-content-around">
+        @if (User.Identity?.Name == Model.UserName || User.IsInRole("Administrator"))
+        {
+           
+                <a class="p-2" asp-action="Edit" asp-route-id="@Model?.MarkerId"><i class="fa-solid fa-pencil"></i>Edit</a>
+                <a class="p-2" asp-action="Delete" asp-route-id="@Model?.MarkerId">Delete<i class="fa-regular fa-trash-can"></i></a>
+        }
+        <a class="p-2" asp-action="Index"><i class="fa-solid fa-map-location"></i>Back to List</a>
+    </div>
 </div>

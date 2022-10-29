@@ -5,18 +5,26 @@
     ViewData["Heading"] = "Marker Categories";
     ViewData["PageType"] = "details";
 }
-<div class="d-flex align-items-center justify-content-end p-2 mb-4 med-gray gm-lower">
-    <div class="border-primary"><a class="p-2 display-7" asp-action="Create"><i class="fa-solid fa-list"></i>Create New Category</a></div>
-</div>
 
-<div class="col-6 m-5">
-<table class="table">
+<div class="col-8 offset-1 p-2 mt-4">
+    <h1 class="display-6">Markers</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin lorem ante, eget rutrum ligula sagittis eu. Vestibulum suscipit orci a nunc fringilla maximus.</p>
+</div>
+<div>
+    <table class="table col-8 offset-1">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th></th>
+            <th>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <div class="d-flex align-items-center p-2 mb-4 med-gray gm-lower">
+                            <div class="border-primary"><a class="p-2 display-7" asp-action="Create"><i class="fa-solid fa-list"></i>Create New Category</a></div>
+                        </div>
+                    }
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -26,9 +34,13 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CategoryId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
+                        <a asp-action="Details" asp-route-id="@item.CategoryId">Details</a>
+                        @if (User.IsInRole("Administrator"))
+                   {
+                      <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a>
+                      <a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
+                   }
+                               
             </td>
         </tr>
 }

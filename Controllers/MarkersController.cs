@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using GeoMarker.Data;
 using GeoMarker.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace GeoMarker.Controllers
 {
+    [Authorize]
     public class MarkersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,12 +23,14 @@ namespace GeoMarker.Controllers
         }
 
         // GET: Markers
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Markers.Include(m => m.Category);
+            var applicationDbContext = _context.Markers;
             return View(await applicationDbContext.ToListAsync());
         }
 
+        [AllowAnonymous]
         // GET: Markers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -49,6 +54,7 @@ namespace GeoMarker.Controllers
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name");
+            ViewData["CurrentDate"] = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
             return View();
         }
 
@@ -57,7 +63,7 @@ namespace GeoMarker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MarkerId,UserId,Title,CategoryId,Description,Address,Latitude,Longitude,CreatedDate")] Marker marker, IFormFile? Photo)
+        public async Task<IActionResult> Create([Bind("MarkerId,UserName,Title,CategoryId,Description,Address,Latitude,Longitude,CreatedDate")] Marker marker, IFormFile? Photo)
         {
             if (ModelState.IsValid)
             {
@@ -68,6 +74,7 @@ namespace GeoMarker.Controllers
                     marker.Photo = fileName;
                 }
 
+     
                 _context.Add(marker);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -90,6 +97,8 @@ namespace GeoMarker.Controllers
                 return NotFound();
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", marker.CategoryId);
+            ViewData["CurrentDate"] = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+
             return View(marker);
         }
 
@@ -98,7 +107,7 @@ namespace GeoMarker.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MarkerId,UserId,Title,CategoryId,Description,Photo,Address,Latitude,Longitude,CreatedDate")] Marker marker)
+        public async Task<IActionResult> Edit(int id, [Bind("MarkerId,UserName,Title,CategoryId,Description,Photo,Address,Latitude,Longitude,CreatedDate")] Marker marker)
         {
             if (id != marker.MarkerId)
             {
@@ -170,6 +179,14 @@ namespace GeoMarker.Controllers
         private bool MarkerExists(int id)
         {
           return _context.Markers.Any(e => e.MarkerId == id);
+        }
+
+        //Return model as JSON for Javascript 
+        [AllowAnonymous]
+        public JsonResult GetMarkerData()
+        {
+            var markerData = _context.Markers;
+            return Json(markerData);
         }
 
         private static string UploadPhoto(IFormFile Photo)
