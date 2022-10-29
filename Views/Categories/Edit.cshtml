@@ -4,12 +4,12 @@
     ViewData["Title"] = "Edit Category : GeoMarker";
     ViewData["Heading"] = "Edit Category";
 }
-
-<div class="d-flex align-items-center justify-content-end p-2 mb-4 med-gray gm-lower">
-    <div class="border-primary"><a class="p-2 display-7 text-danger" asp-action="Index"><i class="fa-regular fa-rectangle-xmark"></i>Cancel</a></div>
+<div class="col-8 offset-1 p-2 mt-4">
+    <h1 class="display-6">Markers</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin lorem ante, eget rutrum ligula sagittis eu. Vestibulum suscipit orci a nunc fringilla maximus.</p>
 </div>
 
-<div class="row">
+<div class="row col-8 offset-1 p-2 mt-4">
     <div>
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -21,6 +21,9 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+            <div class="d-flex align-items-center justify-content-end p-2 mb-4 med-gray gm-lower">
+                <div class="border-primary"><a class="p-2 display-7 text-danger" asp-action="Index"><i class="fa-regular fa-rectangle-xmark"></i>Cancel</a></div>
             </div>
         </form>
     </div>

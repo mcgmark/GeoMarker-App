@@ -13,7 +13,7 @@
 
 <div class="card-deck d-flex flex-column align-content-stretch">
     @foreach (var item in Model) {
-        <div class="card gm-card col-7 offset-1 rounded mb-4 border-0  d-flex flex-row shadow-sm">
+        <div id="@item.MarkerId" class="marker-card card gm-card col-7 offset-1 rounded mb-4 border-0  d-flex flex-row">
             
             @if (item.Photo != null)
             {

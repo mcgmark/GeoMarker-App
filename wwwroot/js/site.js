@@ -4,11 +4,13 @@ const longitudeInput = document.querySelector('input[id="longitude"]');
 const lookupButton = document.getElementById("lookupButton");
 const currentButton = document.getElementById("currentButton");
 const resetAddress = document.getElementById("resetAddress");
+const markerList = document.querySelectorAll(".marker-card");
 
 let map;
 let infobox;
 let searchManager;
 let dataReturn = [];
+let pathname;
 
 const mapContainer = document.querySelector('#myMap');
 
@@ -18,35 +20,34 @@ function GetMap() {
     //Create new map object
     var map = new Microsoft.Maps.Map('#myMap');
    
-    //Initalize map functions
-    GetMarkerData(map, PopulateMarkers);
-    AutoSuggest(map);
-    ReverseGeoCode(map);
-    CurrentLocation(map);
-    DropMarker(map);
-
     //Initalize infobox
     infobox = new Microsoft.Maps.Infobox(map.getCenter(), {
-        visible: false
+        visible: false,
+        width: 600,
+        height: 300
     });
 
     //Assign infobox to map
     infobox.setMap(map);
 
-    resetAddress.addEventListener('click', function () {
-        //reset coordinates input
-        latitudeInput.value = "";
-        longitudeInput.value = "";
-        address.value = "";
-        map.entities.pop();
-        
-    });
+    //Function to place markers on map
+    GetMarkerData(map, PopulateMarkers);
+
+    //Initalize map functions
+    stringPathName = window.location.pathname;
+    if (stringPathName == "/Markers/Create") {
+        DropMarker(map);
+        AutoSuggest(map);
+        ReverseGeoCode(map);
+        CurrentLocation(map);
+        ResetButton(map);
+    };
 };
 
 //Function to drop marker on map click
 function DropMarker(map) {
     Microsoft.Maps.Events.addHandler(map, 'click', function (e) {
-        var stringPathName = window.location.pathname;
+        stringPathName = window.location.pathname;
         if (e.targetType == "map") {
             if (stringPathName == "/Markers/Create") {
                 //Get map unit x,y
@@ -62,6 +63,18 @@ function DropMarker(map) {
                 titleInput.focus();
             };
         };
+    });
+};
+
+//Function for reset button
+function ResetButton(map) {
+    resetAddress.addEventListener('click', function () {
+        //reset coordinates input
+        latitudeInput.value = "";
+        longitudeInput.value = "";
+        address.value = "";
+        map.entities.pop();
+
     });
 };
 
@@ -113,7 +126,7 @@ function AutoSuggest(map) {
     });
 
     function selectedSuggestion(suggestionResult) {
-        map.entities.clear();
+        //map.entities.clear();
         map.setView({ bounds: suggestionResult.bestView });
         Marker(suggestionResult.location, map);
         latitudeInput.value = suggestionResult.location.latitude;
@@ -124,6 +137,7 @@ function AutoSuggest(map) {
 //Function to drop new marker
 function Marker(location, map) {
     var pushpin = new Microsoft.Maps.Pushpin(location);
+    pushpin.setOptions({ color: 'red' });
     Microsoft.Maps.Events.addHandler(pushpin, 'click', function (e) {
         for (var i = map.entities.getLength() - 1; i >= 0; i--) {
             var pushpin = map.entities.get(i);
@@ -132,6 +146,7 @@ function Marker(location, map) {
             }
         };
     });
+
     map.entities.push(pushpin);
 }
 
@@ -158,6 +173,24 @@ function PopulateMarkers(parsedMarkerData, map) {
             description: `${parsedMarkerData[item].description}`
         };
         Microsoft.Maps.Events.addHandler(pushpin, 'click', ShowInfoBox);
+        Microsoft.Maps.Events.addHandler(pushpin, 'mouseover', function (e) {
+            for (var i = map.entities.getLength() - 1; i >= 0; i--) {
+                var pushpin = map.entities.get(i);
+                if (pushpin == e.target) {
+                    markerList[i].classList.add("shadow", "border");
+                    pushpin.setOptions({ color: 'red' });
+                }
+            };
+        });
+        Microsoft.Maps.Events.addHandler(pushpin, 'mouseout', function (e) {
+            for (var i = map.entities.getLength() - 1; i >= 0; i--) {
+                var pushpin = map.entities.get(i);
+                if (pushpin == e.target) {
+                    markerList[i].classList.remove("shadow");
+                    pushpin.setOptions({ color: 'blue' });
+                }
+            };
+        });
         map.entities.push(pushpin);
     };
 };
@@ -188,6 +221,8 @@ function ShowInfoBox(e) {
                 }
             }]
         });
+
+
     }
 }
 
@@ -206,3 +241,4 @@ window.addEventListener('load', () => {
         mapContainer.style.height = '50vh';
     };
 });
+
