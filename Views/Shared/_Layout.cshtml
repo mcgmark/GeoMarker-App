@@ -12,14 +12,14 @@
 </head>
 <body class="container-fluid">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-orange">
+        <nav class="navbar navbar-expand-lg navbar-toggleable-lg navbar-dark bg-orange">
             <div class="container-fluid">
                 <a class="navbar-brand ps-5" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/geomarker-logo.svg" alt="GeoMarker Logo" /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <div class="collapse navbar-collapse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Markers" asp-action="Index"><i class="fa-solid fa-location-pin"></i>View Markers</a>
@@ -40,10 +40,10 @@
     <div class="container-fluid">
         <main role="main" class="container-fluid">
             <div class="row flex-md-nowrap bg-lightgrey">
-                <div class="sidebar min-vh-100 col-xs-12 col-md-4 col-lg-4 col-xl-5 order-last order-md-first">
+                <div class="sidebar min-vh-100 col-xs-12 col-md-6 col-lg-5 order-last order-md-first">
                     @RenderBody()
                 </div>
-                <div class="col-xs-12 col-md-8 col-lg-8 col-xl-7">
+                <div class="col-xs-12 col-md-6 col-lg-7">
                     <div id="myMap"></div>
                     <footer class="footer position-sticky bottom-0 text-center p-1 text-white small bg-orange">
 

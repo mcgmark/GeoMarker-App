@@ -77,10 +77,10 @@ namespace GeoMarker.Controllers
      
                 _context.Add(marker);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id = marker.MarkerId});
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", marker.CategoryId);
-            return View(marker);
+            return View(marker.MarkerId);
         }
 
         // GET: Markers/Edit/5
@@ -132,7 +132,7 @@ namespace GeoMarker.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id = marker.MarkerId });
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name", marker.CategoryId);
             return View(marker);

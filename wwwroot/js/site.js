@@ -5,20 +5,19 @@ const lookupButton = document.getElementById("lookupButton");
 const currentButton = document.getElementById("currentButton");
 const resetAddress = document.getElementById("resetAddress");
 const markerList = document.querySelectorAll(".marker-card");
+const mapContainer = document.querySelector('#myMap');
 
 let map;
 let infobox;
 let searchManager;
 let dataReturn = [];
-let pathname;
-
-const mapContainer = document.querySelector('#myMap');
+let stringPathName;
 
 //Initalize map for page load
 function GetMap() {
 
     //Create new map object
-    var map = new Microsoft.Maps.Map('#myMap');
+    let map = new Microsoft.Maps.Map('#myMap');
    
     //Initalize infobox
     infobox = new Microsoft.Maps.Infobox(map.getCenter(), {
@@ -41,6 +40,13 @@ function GetMap() {
         ReverseGeoCode(map);
         CurrentLocation(map);
         ResetButton(map);
+    } else if (stringPathName.includes("Details") || stringPathName.includes("Edit") || stringPathName.includes("Delete") ) {
+        let latitude = document.getElementById("latitude").innerText;
+        let longitude = document.getElementById("longitude").innerText;
+        map.setView({
+            center: new Microsoft.Maps.Location(latitude, longitude),
+            zoom: 17
+        });
     };
 };
 
@@ -51,9 +57,9 @@ function DropMarker(map) {
         if (e.targetType == "map") {
             if (stringPathName == "/Markers/Create") {
                 //Get map unit x,y
-                var point = new Microsoft.Maps.Point(e.getX(), e.getY());
+                let point = new Microsoft.Maps.Point(e.getX(), e.getY());
                 //Convert map point to location
-                var location = e.target.tryPixelToLocation(point);
+                let location = e.target.tryPixelToLocation(point);
                 //Send marker info to marker function
                 Marker(e.location, map);
                 //Set input boxes to coordinates values
@@ -82,7 +88,7 @@ function ResetButton(map) {
 function CurrentLocation(map) {
     currentButton.addEventListener('click', function () {
         navigator.geolocation.getCurrentPosition(function (position) {
-            var loc = new Microsoft.Maps.Location(position.coords.latitude,position.coords.longitude);
+            let loc = new Microsoft.Maps.Location(position.coords.latitude,position.coords.longitude);
             //Add a pushpin at the user's location.
             Marker(loc, map);
             //Center the map on the user's location.
@@ -98,10 +104,10 @@ function CurrentLocation(map) {
 function ReverseGeoCode(map) {
     lookupButton.addEventListener('click', function () {
         Microsoft.Maps.loadModule('Microsoft.Maps.Search', function () {
-            var searchManager = new Microsoft.Maps.Search.SearchManager(map);
+            let searchManager = new Microsoft.Maps.Search.SearchManager(map);
             let latitudeValue = latitudeInput.value;
             let longitudeValue = longitudeInput.value;
-            var reverseGeocodeRequestOptions = {
+            let reverseGeocodeRequestOptions = {
                 location: new Microsoft.Maps.Location(latitudeValue, longitudeValue),
                 callback: function (answer, userData) {
                     map.setView({ bounds: answer.bestView });
@@ -117,11 +123,11 @@ function ReverseGeoCode(map) {
 //Function to automatically suggest addresses
 function AutoSuggest(map) {
     Microsoft.Maps.loadModule('Microsoft.Maps.AutoSuggest', function () {
-        var options = {
+        let options = {
             maxResults: 4,
             map: map
         };
-        var manager = new Microsoft.Maps.AutosuggestManager(options);
+        let manager = new Microsoft.Maps.AutosuggestManager(options);
         manager.attachAutosuggest('#address', '#searchBoxContainer', selectedSuggestion);
     });
 
@@ -136,11 +142,11 @@ function AutoSuggest(map) {
 
 //Function to drop new marker
 function Marker(location, map) {
-    var pushpin = new Microsoft.Maps.Pushpin(location);
+    let pushpin = new Microsoft.Maps.Pushpin(location);
     pushpin.setOptions({ color: 'red' });
     Microsoft.Maps.Events.addHandler(pushpin, 'click', function (e) {
-        for (var i = map.entities.getLength() - 1; i >= 0; i--) {
-            var pushpin = map.entities.get(i);
+        for (let i = map.entities.getLength() - 1; i >= 0; i--) {
+            let pushpin = map.entities.get(i);
             if (pushpin == e.target) {
                 map.entities.remove(pushpin);
             }
@@ -167,64 +173,58 @@ function GetMarkerData(map, callback) {
 function PopulateMarkers(parsedMarkerData, map) {
     for (let item in parsedMarkerData) {
         let location = new Microsoft.Maps.Location(`${parsedMarkerData[item].latitude}`, `${parsedMarkerData[item].longitude}`);
-        var pushpin = new Microsoft.Maps.Pushpin(location);
+        let pushpin = new Microsoft.Maps.Pushpin(location);
         pushpin.metadata = {
             title: `${parsedMarkerData[item].title}`,
             description: `${parsedMarkerData[item].description}`
         };
-        Microsoft.Maps.Events.addHandler(pushpin, 'click', ShowInfoBox);
+        pushpin.setOptions({ color: 'blue' });
+
+        //Event listener for Marker mouseover and mouseout
         Microsoft.Maps.Events.addHandler(pushpin, 'mouseover', function (e) {
-            for (var i = map.entities.getLength() - 1; i >= 0; i--) {
-                var pushpin = map.entities.get(i);
+            for (let i = map.entities.getLength() - 1; i >= 0; i--) {
+                let pushpin = map.entities.get(i);
                 if (pushpin == e.target) {
                     markerList[i].classList.add("shadow", "border");
+                    markerList[i].focus();
                     pushpin.setOptions({ color: 'red' });
                 }
             };
         });
         Microsoft.Maps.Events.addHandler(pushpin, 'mouseout', function (e) {
-            for (var i = map.entities.getLength() - 1; i >= 0; i--) {
-                var pushpin = map.entities.get(i);
+            for (let i = map.entities.getLength() - 1; i >= 0; i--) {
+                let pushpin = map.entities.get(i);
                 if (pushpin == e.target) {
                     markerList[i].classList.remove("shadow");
                     pushpin.setOptions({ color: 'blue' });
                 }
             };
         });
+
+        //Event listeners for the Marker list items to focus on the right marker on the map
+        for (let k = 0; k < markerList.length; k++) {
+            markerList[k].addEventListener("mouseover", (event) => {
+                markerList[k].classList.add("shadow");
+                let pushpinCurrent = map.entities.get(k);
+                pushpinCurrent.setOptions({ color: 'red' });
+                map.setView({
+                    center: new Microsoft.Maps.Location(pushpinCurrent.geometry.y, pushpinCurrent.geometry.x),
+                    zoom: 15
+                });
+                ShowInfoBox(pushpinCurrent);
+               
+            });
+            markerList[k].addEventListener("mouseout", (event) => {
+                markerList[k].classList.remove("shadow", "border");
+                let pushpinCurrent = map.entities.get(k);
+                pushpinCurrent.setOptions({ color: 'blue' });
+            });
+        };
+
+        //Add the marker to the map entities for control
         map.entities.push(pushpin);
     };
 };
-
-
-
-//Function to show marker infobox
-function ShowInfoBox(e) {
-    //Check to see if infobox has metadata to display.
-    if (e.target.metadata) {
-        //Set the infobox options with the metadata of the pushpin.
-        infobox.setOptions({
-            location: e.target.getLocation(),
-            title: e.target.metadata.title,
-            description: e.target.metadata.description,
-            visible: true,
-            maxHeight: 250,
-            maxWidth: 300,
-            actions: [{
-                label: 'Handler1',
-                eventHandler: function (e) {
-                    alert('Handler1');
-                }
-            }, {
-                label: 'Handler2',
-                eventHandler: function (e) {
-                    alert('Handler2');
-                }
-            }]
-        });
-
-
-    }
-}
 
 //Change map size according to window size
 window.addEventListener('resize', () => {
@@ -241,4 +241,3 @@ window.addEventListener('load', () => {
         mapContainer.style.height = '50vh';
     };
 });
-

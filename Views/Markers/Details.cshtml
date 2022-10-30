@@ -26,12 +26,12 @@
         <p class="card-text">@Model.Description</p>
     </div>
     <ul class="list-group list-group-flush">
-        <li class="list-group-item">@Model.UserName</li>
-        <li class="list-group-item">@Model.Category.Name</li>
-        <li class="list-group-item">@Model.Address</li>
-        <li class="list-group-item">@Model.Latitude</li>
-        <li class="list-group-item">@Model.Longitude</li>
-        <li class="list-group-item">@Model.CreatedDate</li>
+        <li id="username" class="list-group-item">@Model.UserName</li>
+        <li id="category" class="list-group-item">@Model.Category.Name</li>
+        <li id="address" class="list-group-item">@Model.Address</li>
+        <li id="latitude" class="list-group-item">@Model.Latitude</li>
+        <li id="longitude" class="list-group-item">@Model.Longitude</li>
+        <li id="createddate" class="list-group-item">@Model.CreatedDate</li>
     </ul>
     <div class="bg-orange p-1 d-flex justify-content-around">
         @if (User.Identity?.Name == Model.UserName || User.IsInRole("Administrator"))
