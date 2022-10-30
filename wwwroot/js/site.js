@@ -185,7 +185,7 @@ function PopulateMarkers(parsedMarkerData, map) {
             for (let i = map.entities.getLength() - 1; i >= 0; i--) {
                 let pushpin = map.entities.get(i);
                 if (pushpin == e.target) {
-                    markerList[i].classList.add("shadow", "border");
+                    markerList[i].classList.add("shadow-blue");
                     markerList[i].focus();
                     pushpin.setOptions({ color: 'red' });
                 }
@@ -195,7 +195,7 @@ function PopulateMarkers(parsedMarkerData, map) {
             for (let i = map.entities.getLength() - 1; i >= 0; i--) {
                 let pushpin = map.entities.get(i);
                 if (pushpin == e.target) {
-                    markerList[i].classList.remove("shadow");
+                    markerList[i].classList.remove("shadow-blue");
                     pushpin.setOptions({ color: 'blue' });
                 }
             };
@@ -204,7 +204,7 @@ function PopulateMarkers(parsedMarkerData, map) {
         //Event listeners for the Marker list items to focus on the right marker on the map
         for (let k = 0; k < markerList.length; k++) {
             markerList[k].addEventListener("mouseover", (event) => {
-                markerList[k].classList.add("shadow");
+                markerList[k].classList.add("shadow-blue");
                 let pushpinCurrent = map.entities.get(k);
                 pushpinCurrent.setOptions({ color: 'red' });
                 map.setView({
@@ -215,7 +215,7 @@ function PopulateMarkers(parsedMarkerData, map) {
                
             });
             markerList[k].addEventListener("mouseout", (event) => {
-                markerList[k].classList.remove("shadow", "border");
+                markerList[k].classList.remove("shadow-blue");
                 let pushpinCurrent = map.entities.get(k);
                 pushpinCurrent.setOptions({ color: 'blue' });
             });

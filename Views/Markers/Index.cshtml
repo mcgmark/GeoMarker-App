@@ -13,7 +13,7 @@
 
 <div class="card-deck d-flex flex-column align-content-stretch">
     @foreach (var item in Model) {
-        <div id="@item.MarkerId" class="marker-card card gm-card col-xs-11 col-xl-10 offset-1 rounded mb-4 border-0  d-flex flex-row">
+        <div id="@item.MarkerId" class="marker-card card gm-card col-xs-11 col-xl-8 offset-1 rounded mb-4 border-0  d-flex flex-row">
             
             @if (item.Photo != null)
             {
@@ -24,7 +24,7 @@
                 <img class="card-img-top"  src="~/img/markers/placeholder.png" alt="Marker Photo" />
             }
            
-        <div class="card-body p-0">
+        <div class="card-body p-1">
                 <h5 class="card-title p-0 ps-2 m-0">@Html.DisplayFor(modelItem => item.Title)</h5>
                 <p class="card-text m-0 p-0 ps-2 small">@Html.DisplayFor(modelItem => item.UserName)</p>
                 <small class="text-muted p-0 ps-2">@Html.DisplayFor(modelItem => item.CreatedDate)</small>

@@ -19,7 +19,6 @@ html {
 
 body {
     min-height: 100%;
-
 }
 
 nav i {
@@ -85,6 +84,7 @@ nav img {
 
 .card {
     min-width: 200px;
+    transition: all 0.2s ease;
 }
 
 p {
@@ -132,4 +132,13 @@ header img {
 
 .navbar-toggler-icon {
     color: #fff !important;
+}
+
+.shadow-blue {
+    box-shadow: 0px 0px 25px #0778ff70;
+    top: -5px;
+}
+
+footer {
+    line-height: 1.5em !important;
 }
