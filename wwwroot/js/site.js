@@ -227,7 +227,7 @@ function PopulateMarkers(parsedMarkerData, map) {
 };
 
 //Change map size according to window size
-window.addEventListener('resize', () => {
+/*window.addEventListener('resize', () => {
     if (window.innerWidth >= 800) {
         mapContainer.style.height = '100vh';
     } else if (window.innerWidth <= 800) {
@@ -240,4 +240,4 @@ window.addEventListener('load', () => {
     if (window.innerWidth <= 800) {
         mapContainer.style.height = '50vh';
     };
-});
+});*/

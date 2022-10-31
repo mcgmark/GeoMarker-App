@@ -30,6 +30,15 @@ namespace GeoMarker.Controllers
             return View(await applicationDbContext.ToListAsync());
         }
 
+
+        //Return model as JSON for Javascript 
+        [AllowAnonymous]
+        public JsonResult GetMarkerData()
+        {
+            var markerData = _context.Markers;
+            return Json(markerData);
+        }
+
         [AllowAnonymous]
         // GET: Markers/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -179,14 +188,6 @@ namespace GeoMarker.Controllers
         private bool MarkerExists(int id)
         {
           return _context.Markers.Any(e => e.MarkerId == id);
-        }
-
-        //Return model as JSON for Javascript 
-        [AllowAnonymous]
-        public JsonResult GetMarkerData()
-        {
-            var markerData = _context.Markers;
-            return Json(markerData);
         }
 
         private static string UploadPhoto(IFormFile Photo)
