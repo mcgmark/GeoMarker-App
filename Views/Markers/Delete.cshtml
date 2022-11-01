@@ -3,13 +3,10 @@
 @{
     ViewData["Title"] = "Delete Marker : GeoMarker";
     ViewData["Heading"] = "Delete Marker";
-    ViewData["PageType"] = "cancel";
+    ViewData["Content"] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin lorem ante, eget rutrum ligula sagittis eu. Vestibulum suscipit orci a nunc fringilla maximus.";
 }
-<div class="col-11 offset-1 p-2 mt-4">
-    <h1 class="display-6">Markers</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin lorem ante, eget rutrum ligula sagittis eu. Vestibulum suscipit orci a nunc fringilla maximus.</p>
-</div>
-<div class="card col-7 offset-1">
+
+<div class="card col-xs-12 col-lg-10 col-xl-9 mb-4">
     @if (Model.Photo != null)
     {
         <img class="card-img-top-large" src="~/img/markers/@Model.Photo" alt="Marker Photo" />

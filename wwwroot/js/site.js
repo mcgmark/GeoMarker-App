@@ -80,7 +80,6 @@ function ResetButton(map) {
         longitudeInput.value = "";
         address.value = "";
         map.entities.pop();
-
     });
 };
 
@@ -149,12 +148,19 @@ function Marker(location, map) {
             let pushpin = map.entities.get(i);
             if (pushpin == e.target) {
                 map.entities.remove(pushpin);
+                ClearInput();
             }
         };
     });
 
     map.entities.push(pushpin);
 }
+
+function ClearInput() {
+    latitudeInput.value = "";
+    longitudeInput.value = "";
+    address.value = "";
+};
 
 //Function to get marker JSON data
 function GetMarkerData(map, callback) {
@@ -186,7 +192,7 @@ function PopulateMarkers(parsedMarkerData, map) {
                 let pushpin = map.entities.get(i);
                 if (pushpin == e.target) {
                     markerList[i].classList.add("shadow-blue");
-                    markerList[i].focus();
+                    markerList[i].scrollIntoView({block: 'nearest'});
                     pushpin.setOptions({ color: 'red' });
                 }
             };
@@ -211,7 +217,7 @@ function PopulateMarkers(parsedMarkerData, map) {
                     center: new Microsoft.Maps.Location(pushpinCurrent.geometry.y, pushpinCurrent.geometry.x),
                     zoom: 15
                 });
-                ShowInfoBox(pushpinCurrent);
+          
                
             });
             markerList[k].addEventListener("mouseout", (event) => {
@@ -225,19 +231,3 @@ function PopulateMarkers(parsedMarkerData, map) {
         map.entities.push(pushpin);
     };
 };
-
-//Change map size according to window size
-/*window.addEventListener('resize', () => {
-    if (window.innerWidth >= 800) {
-        mapContainer.style.height = '100vh';
-    } else if (window.innerWidth <= 800) {
-        mapContainer.style.height = '100vh';
-
-    }
-});
-
-window.addEventListener('load', () => {
-    if (window.innerWidth <= 800) {
-        mapContainer.style.height = '50vh';
-    };
-});*/

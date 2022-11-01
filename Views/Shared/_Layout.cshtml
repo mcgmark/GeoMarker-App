@@ -12,10 +12,10 @@
 </head>
 <body class="container-fluid vh-100">
     <header>
-        <nav class="navbar navbar-expand-lg navbar-toggleable-lg navbar-dark bg-orange">
+        <nav class="navbar navbar-expand-lg navbar-toggleable-lg navbar-dark bg-orange shadow">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/geomarker-logo.svg" alt="GeoMarker Logo" /></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                <button class="navbar-toggler me-3" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -39,17 +39,26 @@
                 </div>
             </div>
         </nav>
-     
-        
+        <div>
+            <a class="bg-lightgrey w-100 p-1 text-center d-block d-sm-none text-decoration-none" type="button" data-bs-toggle="collapse" data-bs-target=".sidebar-collapse" aria-expanded="false">
+                Tap to Toggle Map
+            </a>
+        </div> 
     </header>
     <div>
         <main role="main" class="container-fluid">
-            <div class="d-flex flex-wrap flex-md-nowrap align-content-stretch">
-                <div class="sidebar col-xs-11 col-md-5 col-lg-6 sidebar-collapse overflow-scroll vh-100">
-                            @RenderBody()
+            <div class="d-flex flex-wrap flex-md-nowrap h-100">
+                <div class="sidebar col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-3 sidebar-collapse overflow-scroll">
+                    <div class="col-xs-12 col-md-9 mb-5 bg-success w-100 p-4">
+                        <h1 class="display-4">@ViewData["Heading"]</h1>
+                        <p>@ViewData["Content"]</p>
+                    </div>
+                    <div class="pb-5">
+                        @RenderBody()
+                    </div>
                  </div>     
-               <div class="col-xs-11 col-md-7 col-lg-6">
-                    <div id="myMap" class="vh-100 flex-1"></div>
+               <div class="col-xs-12 col-sm-6 col-md-8 col-lg-8 col-xl-9">
+                    <div id="myMap"></div>
                      <footer class="footer position-sticky bottom-0 text-center text-white small bg-orange text-wrap">
                     &copy; 2022 - GeoMarker - Mark McGuigan 020024941 - Server-Side Scripting-ASP.NET - COMP2084 Fall 2022 - <a href="https://github.com/mcgmark/GeoMarker" target="_blank" class="text-white">View on Github</a> - <a class="text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                 </footer>
