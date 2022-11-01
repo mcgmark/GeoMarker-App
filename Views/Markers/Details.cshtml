@@ -2,12 +2,13 @@
 
 @{
     ViewData["Title"] = "Marker Details : GeoMarker";
-    ViewData["Heading"] = "Marker";
-    ViewData["Content"] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin lorem ante, eget rutrum ligula sagittis eu. Vestibulum suscipit orci a nunc fringilla maximus.";
-  
+    ViewData["Heading"] = @Model.Title;
+    ViewData["Content"] = @Model.Description;
+
 }
 
-<div class="card col-xs-12 col-lg-10 col-xl-9 mb-4">
+<div class="flex-grow-1 bg-success d-flex flex-column justify-content-between">
+    <div>
     @if (Model.Photo != null)
     {
         <img class="card-img-top-large" src="~/img/markers/@Model.Photo" alt="Marker Photo" />
@@ -16,25 +17,23 @@
     {
         <img class="card-img-top-large" src="~/img/markers/placeholder.png" alt="Marker Photo" />
     }
-    <div class="card-body">
-        <h5 class="card-title">@Model.Title</h5>
-        <p class="card-text">@Model.Description</p>
     </div>
-    <ul class="list-group list-group-flush">
-        <li id="username" class="list-group-item">@Model.UserName</li>
+    <div>
+    <ul class="list-group list-group-flush flex-grow-1">  
         <li id="category" class="list-group-item">@Model.Category.Name</li>
         <li id="address" class="list-group-item">@Model.Address</li>
         <li id="latitude" class="list-group-item">@Model.Latitude</li>
         <li id="longitude" class="list-group-item">@Model.Longitude</li>
+        <li id="username" class="list-group-item">@Model.UserName</li>
         <li id="createddate" class="list-group-item">@Model.CreatedDate</li>
     </ul>
-    <div class="bg-orange p-1 d-flex justify-content-around">
+    </div>
+    <div class="bg-orange p-2 d-flex justify-content-around">
         @if (User.Identity?.Name == Model.UserName || User.IsInRole("Administrator"))
         {
-           
-                <a class="p-2" asp-action="Edit" asp-route-id="@Model?.MarkerId"><i class="fa-solid fa-pencil"></i>Edit</a>
-                <a class="p-2" asp-action="Delete" asp-route-id="@Model?.MarkerId">Delete<i class="fa-regular fa-trash-can"></i></a>
+            <a class="text-white text-decoration-none" asp-action="Edit" asp-route-id="@Model?.MarkerId"><i class="fa-solid fa-pencil"></i>Edit</a>
+            <a class="text-white text-decoration-none" asp-action="Delete" asp-route-id="@Model?.MarkerId">Delete<i class="fa-regular fa-trash-can"></i></a>
         }
-        <a class="p-2" asp-action="Index"><i class="fa-solid fa-map-location"></i>Back to List</a>
+        <a class="text-white text-decoration-none" asp-action="Index"><i class="fa-solid fa-map-location"></i>Back to List</a>
     </div>
 </div>

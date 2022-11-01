@@ -6,15 +6,8 @@
     ViewData["Content"] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin lorem ante, eget rutrum ligula sagittis eu. Vestibulum suscipit orci a nunc fringilla maximus.";
 }
 
-@if (User.IsInRole("Administrator"))
-{
-    <div class="d-flex align-items-center justify-content-end p-2 mb-4 med-gray gm-lower">
-        <div class=""><a asp-action="Edit" asp-route-id="@Model?.CategoryId">Edit</a></div>
-        <div class="border-primary"><a class="p-2 display-7" asp-action="Index"><i class="fa-solid fa-map-location"></i>Back to List</a></div>
-    </div>
-}
-<div class="col=8 offset-1">
-    <dl class="row">
+<div class="mb-4">
+    <dl class="row p-4">
         <dt class = "col-sm-6">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -22,5 +15,14 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
     </dl>
+
+    <div class="bg-orange p-2 d-flex justify-content-around">
+        @if (User.IsInRole("Administrator"))
+        {
+            <a class="text-white text-decoration-none" asp-action="Edit" asp-route-id="@Model?.CategoryId"><i class="fa-solid fa-pencil"></i>Edit</a>
+            <a class="text-white text-decoration-none" asp-action="Delete" asp-route-id="@Model?.CategoryId">Delete<i class="fa-regular fa-trash-can"></i></a>
+        }
+        <a class="text-white text-decoration-none" asp-action="Index"><i class="fa-solid fa-map-location"></i>Back to List</a>
+    </div>
 </div>
 

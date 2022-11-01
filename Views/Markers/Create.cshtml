@@ -6,7 +6,7 @@
     ViewData["Content"] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin lorem ante, eget rutrum ligula sagittis eu. Vestibulum suscipit orci a nunc fringilla maximus.";
 }
 
-<div class="col-xs-12 col-lg-10 col-xl-9 mb-4">
+<div class="mb-4 p-4">
     <div>
             <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -49,17 +49,17 @@
                 <input asp-for="Longitude" class="form-control" id="longitude" />
                 <span asp-validation-for="Longitude" class="text-danger"></span>
             </div>
-            <div><a class="text-blue" href="#" id="lookupButton">Look Up</a></div>
-            <div><a href="#" class="text-blue"  id="currentButton">Current Location</a></div>
-                <div><a href="#" class="text-blue" id="resetAddress">Delete Marker</a></div>
+            <div><a class="text-blue" href="#" id="lookupButton">Reverse Lookup</a></div>
+            <div><a href="#" class="text-blue"  id="currentButton">Get Current Location</a></div>
+                <div><a href="#" class="text-blue" id="resetAddress">Delete Last Marker</a></div>
             <div class="form-group">
              
                     <input asp-for="CreatedDate" class="form-control" value="@ViewData["CurrentDate"]" type="hidden" />
                 <span asp-validation-for="CreatedDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-                <a class="p-2 display-7 text-danger" asp-action="Index"><i class="fa-regular fa-rectangle-xmark"></i>Cancel</a>
+            <div class="mt-3 p-2 d-flex justify-content-around bg-orange">
+                <span class=" text-white"><i class="fa-solid fa-check"></i><input type="submit" value="Create" class="btn p-0 text-white" /></span>
+                <a class="text-white" asp-action="Index"><i class="fa-regular fa-rectangle-xmark"></i>Cancel</a>
             </div>
         </form>
     </div>

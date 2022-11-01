@@ -7,23 +7,8 @@
 }
 
 
-<div>
-    <table class="table col-8">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                    @if (User.IsInRole("Administrator"))
-                    {
-                        <div class="d-flex align-items-center p-2 mb-4 med-gray gm-lower">
-                            <div class="border-primary"><a class="p-2 display-7" asp-action="Create"><i class="fa-solid fa-list"></i>Create New Category</a></div>
-                        </div>
-                    }
-            </th>
-        </tr>
-    </thead>
+<div class="p-4">
+    <table class="table table-hover">
     <tbody>
 @foreach (var item in Model) {
         <tr>
@@ -31,13 +16,12 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                        <a asp-action="Category" asp-controller="Markers" asp-route-id="@item.CategoryId">View Category</a>
                         @if (User.IsInRole("Administrator"))
                    {
-                      <a asp-action="Edit" asp-route-id="@item.CategoryId">Edit</a>
-                      <a asp-action="Delete" asp-route-id="@item.CategoryId">Delete</a>
+                            <a asp-action="Edit" asp-route-id="@item.CategoryId" class="p-1 text-decoration-none">Edit<i class="fa-solid fa-pencil"></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.CategoryId" class="p-1 text-decoration-none">Delete<i class="fa-regular fa-trash-can"></i></a>
                    }
-                               
+                    <a asp-action="Category" asp-controller="Markers" asp-route-id="@item.CategoryId" class="p-1 text-decoration-none">View Category<i class="fa-solid fa-circle-arrow-right"></i></a>      
             </td>
         </tr>
 }
