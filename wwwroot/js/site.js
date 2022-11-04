@@ -17,13 +17,14 @@ let stringPathName;
 function GetMap() {
 
     //Create new map object
-    let map = new Microsoft.Maps.Map('#myMap');
+    let map = new Microsoft.Maps.Map('#myMap', {
+        center: new Microsoft.Maps.Location(44.4116, -79.6667),
+        zoom: 10
+    });
    
     //Initalize infobox
     infobox = new Microsoft.Maps.Infobox(map.getCenter(), {
         visible: false,
-        width: 600,
-        height: 300
     });
 
     //Assign infobox to map
@@ -65,8 +66,7 @@ function DropMarker(map) {
                 //Set input boxes to coordinates values
                 latitudeInput.value = location.latitude;
                 longitudeInput.value = location.longitude;
-                //Make title input the focus
-                titleInput.focus();
+               
             };
         };
     });
@@ -83,7 +83,7 @@ function ResetButton(map) {
     });
 };
 
-//Function for currentLocation button
+//Function for currentLocation button (This doesn't work on a server without SSL certificate)
 function CurrentLocation(map) {
     currentButton.addEventListener('click', function () {
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -156,11 +156,39 @@ function Marker(location, map) {
     map.entities.push(pushpin);
 }
 
+//Clear text inputs
 function ClearInput() {
     latitudeInput.value = "";
     longitudeInput.value = "";
     address.value = "";
 };
+
+//Infobox function
+function ShowInfoBox(e, map) {
+    let closeButton = '<a href="javascript:CloseInfobox()" class="customInfoboxCloseButton">X</a>';
+    if (e.target === undefined) {
+        let location = new Microsoft.Maps.Location(e.geometry.y, e.geometry.x);
+        infobox.setOptions({
+            htmlContent: `<div class="customInfobox shadow"><div class="title">${e.metadata.title}</div>${e.metadata.description}</div>`,
+            location: location,
+            visible: true
+        });
+    } else if (e.target !== undefined) {
+        let location = new Microsoft.Maps.Location(e.target.geometry.y, e.target.geometry.x);
+        infobox.setOptions({
+            htmlContent: `<div class="customInfobox shadow"><div class="title">${e.target.metadata.title}</div>${e.target.metadata.description}</div> ${closeButton}`,
+            location: location,
+            visible: true
+        });
+    };
+    infobox.setMap(map);
+}
+
+//Close infobox function
+function CloseInfobox() {
+    infobox.setOptions({ visible: false });
+}
+
 
 //Function to get marker JSON data
 function GetMarkerData(map, callback) {
@@ -184,46 +212,68 @@ function PopulateMarkers(parsedMarkerData, map) {
             title: `${parsedMarkerData[item].title}`,
             description: `${parsedMarkerData[item].description}`
         };
-        pushpin.setOptions({ color: 'blue' });
+        pushpin.setOptions({ color: '#0778ff' });
 
         //Event listener for Marker mouseover and mouseout
         Microsoft.Maps.Events.addHandler(pushpin, 'mouseover', function (e) {
             for (let i = map.entities.getLength() - 1; i >= 0; i--) {
                 let pushpin = map.entities.get(i);
                 if (pushpin == e.target) {
-                    markerList[i].classList.add("shadow-blue");
-                    markerList[i].scrollIntoView({block: 'nearest'});
-                    pushpin.setOptions({ color: 'red' });
-                }
+                    if (markerList.length !== 0) {
+                        markerList[i].classList.add("bg-success");
+                        markerList[i].scrollIntoView({ block: 'nearest' });
+                    };
+                    ShowInfoBox(e, map);
+                    pushpin.setOptions({ color: '#ff0000' });
+                };
             };
         });
+
+        Microsoft.Maps.Events.addHandler(pushpin, 'click', function (e) {
+            for (let i = map.entities.getLength() - 1; i >= 0; i--) {
+                let pushpin = map.entities.get(i);
+                if (pushpin == e.target) {
+                    if (markerList.length !== 0) {
+                        markerList[i].classList.add("bg-success");
+                        markerList[i].scrollIntoView({ block: 'nearest' });
+                    };
+                    ShowInfoBox(e, map);
+                    pushpin.setOptions({ color: '#ff0000' });
+                };
+            };
+        });
+
         Microsoft.Maps.Events.addHandler(pushpin, 'mouseout', function (e) {
             for (let i = map.entities.getLength() - 1; i >= 0; i--) {
                 let pushpin = map.entities.get(i);
                 if (pushpin == e.target) {
-                    markerList[i].classList.remove("shadow-blue");
-                    pushpin.setOptions({ color: 'blue' });
-                }
+                    if (markerList.length !== 0) {
+                        markerList[i].classList.remove("bg-success");
+                    };
+                    pushpin.setOptions({ color: '#0778ff' });
+                    CloseInfobox();
+                };
             };
         });
 
         //Event listeners for the Marker list items to focus on the right marker on the map
         for (let k = 0; k < markerList.length; k++) {
-            markerList[k].addEventListener("mouseover", (event) => {
-                markerList[k].classList.add("shadow-blue");
+            markerList[k].addEventListener("mouseover", function () {
+                markerList[k].classList.add("bg-success");
                 let pushpinCurrent = map.entities.get(k);
-                pushpinCurrent.setOptions({ color: 'red' });
+                pushpinCurrent.setOptions({ color: '#ff0000' });
                 map.setView({
                     center: new Microsoft.Maps.Location(pushpinCurrent.geometry.y, pushpinCurrent.geometry.x),
                     zoom: 15
-                });
-          
-               
+                }); 
+                ShowInfoBox(map.entities.get(k), map);
             });
-            markerList[k].addEventListener("mouseout", (event) => {
-                markerList[k].classList.remove("shadow-blue");
+
+            markerList[k].addEventListener("mouseout", function () {
+                markerList[k].classList.remove("bg-success");
                 let pushpinCurrent = map.entities.get(k);
-                pushpinCurrent.setOptions({ color: 'blue' });
+                pushpinCurrent.setOptions({ color: '#0778ff' });
+                CloseInfobox(); 
             });
         };
 

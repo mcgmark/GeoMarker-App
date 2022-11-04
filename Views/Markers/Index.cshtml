@@ -6,36 +6,36 @@
     ViewData["Content"] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin lorem ante, eget rutrum ligula sagittis eu. Vestibulum suscipit orci a nunc fringilla maximus.";
 }
 
-<div class="d-flex flex-column pb-5">
+<div class="vstack mb-5 pb-5 p-3">
     @foreach (var item in Model) {
-        <div id="@item.MarkerId" class="marker-card border-bottom" tabindex="0">
-        <div class="d-flex">    
-            @if (item.Photo != null)
-            {
-                <img class="card-img-top"  src="~/img/markers/@item.Photo" alt="Marker Photo" />
-            }
-            else
-            {
-                <img class="card-img-top"  src="~/img/markers/placeholder.png" alt="Marker Photo" />
-            }
+        <div id="@item.MarkerId" class="bg-white mb-2 marker-card" tabindex="0">
+            <div class="d-flex">
+                @{ var link = "";
+                    if (item.Photo != null){
+                        link = item.Photo;
+                    } else {
+                        link = "placeholder.png";
+                    };
+                }
+                <div class="w-25 flex-grow-0" style="background-image: url('@Url.Content("~/img/markers/" + @link + "")'); background-position: center; background-size: cover;">
+                </div>
            
-        <div class="p-3">
-                <h5 class="m-0 p-0">@Html.DisplayFor(modelItem => item.Title)</h5>
-                <p class="m-0 p-0">@Html.DisplayFor(modelItem => item.UserName)</p>
-                <small class="p-0">@Html.DisplayFor(modelItem => item.CreatedDate)</small>
-                    <div class="marker-list-buttons rounded w-100 p-1">
-                        <div>
-                            <a class="text-black p-0 small text-decoration-none" asp-action="Details" asp-route-id="@item.MarkerId">View<i class="fa-solid fa-circle-arrow-right"></i></a>
+                <div class="p-3">
+                    <h5 class="m-0 p-0">@Html.DisplayFor(modelItem => item.Title)</h5>
+                    <p class="m-0 p-0">@Html.DisplayFor(modelItem => item.UserName)</p>
+                    <small class="p-0">@Html.DisplayFor(modelItem => item.CreatedDate)</small>
+                    <div class="marker-list-buttons rounded mt-3">
+                        <div class="d-flex flex-column flex-lg-row">
+                            <a class="btn text-primary border border-primary p-2 m-1 ms-0 rounded small text-decoration-none text-center" asp-action="Details" asp-route-id="@item.MarkerId">View<i class="fa-solid fa-circle-arrow-right"></i></a>
                             @if (User.Identity?.Name == item.UserName || User.IsInRole("Administrator"))
                             {
-                                <a asp-action="Edit" asp-route-id="@item.MarkerId" class="text-black small text-decoration-none">Edit<i class="fa-solid fa-pencil"></i></a>
-                                <a asp-action="Delete" asp-route-id="@item.MarkerId" class="text-black small text-decoration-none">Delete<i class="fa-regular fa-trash-can"></i></a>
+                                <a asp-action="Edit" asp-route-id="@item.MarkerId" class="btn text-primary p-2 border border-primary rounded small text-decoration-none text-center m-1 ms-0 ms-lg-1">Edit<i class="fa-solid fa-pencil"></i></a>
+                                <a asp-action="Delete" asp-route-id="@item.MarkerId" class="btn text-primary p-2 border border-primary rounded small text-decoration-none text-center m-1 ms-0 ms-lg-1">Delete<i class="fa-regular fa-trash-can"></i></a>
                             }
                         </div>
                     </div>
-        </div>
-        </div>
-            
+                </div>
+            </div>        
         </div>
     }
 </div>
