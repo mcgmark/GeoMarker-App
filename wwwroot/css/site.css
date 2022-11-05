@@ -54,9 +54,9 @@ nav img {
     height: 100vh;
 }
 
-.sidebar::-webkit-scrollbar {
-    width: 6px; /* width of the entire scrollbar */
-}
+    .sidebar::-webkit-scrollbar {
+        width: 6px; /* width of the entire scrollbar */
+    }
 
     .sidebar::-webkit-scrollbar-track {
         background: #f8f8f8; /* color of the tracking area */
@@ -139,23 +139,33 @@ main {
     height: calc(100vh - 75px);
 }
 
-.customInfobox {
+.infobox {
     background-color: #fff;
     color: #000;
     max-width: 350px;
     border-radius: 10px;
     padding: 20px;
+    padding-top: 5px;
+    padding-bottom: 3px;
     font-size: 14px;
     pointer-events: auto !important;
 }
 
-.customInfobox .title {
-    font-size: 25px;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
+    .infobox .infobox-link {
+        color: #0778ff;
+    }
 
-a.customInfoboxCloseButton:link, a.customInfoboxCloseButton:visited {
+    .infobox .infobox-link a {
+        text-decoration: none !important;
+    }
+
+    .infobox .title {
+        font-size: 25px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+a.infobox-close:link, a.infobox-close:visited {
     color: #333;
     text-decoration: none;
     position: absolute;
@@ -164,4 +174,8 @@ a.customInfoboxCloseButton:link, a.customInfoboxCloseButton:visited {
     font-family: Arial, sans-serif;
     font-weight: bold;
     font-size: 16px;
+}
+
+.bg-lightorange {
+    background-color: rgb(252,202,70, 0.2) !important;
 }

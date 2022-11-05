@@ -22,7 +22,7 @@
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-controller="Markers" asp-action="Index"><i class="fa-solid fa-location-pin"></i>View Markers</a>
+                            <a class="nav-link text-white fs-6" asp-area="" asp-controller="Markers" asp-action="Index"><i class="fa-solid fa-location-pin"></i>Markers</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-white" asp-area="" asp-controller="Categories" asp-action="Index"><i class="fa-solid fa-list"></i>Categories</a>
@@ -31,7 +31,7 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li>
-                                <a class="nav-link text-white" asp-controller="Markers" asp-action="Create"><i class="fa-solid fa-map-location"></i>Create New Marker</a>
+                                <a class="nav-link text-white fs-6" asp-controller="Markers" asp-action="Create"><i class="fa-solid fa-map-location"></i>Create New Marker</a>
                             </li>
                         }
                     </ul>
