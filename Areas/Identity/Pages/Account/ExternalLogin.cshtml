@@ -2,29 +2,26 @@
 @model ExternalLoginModel
 @{
     ViewData["Title"] = "Register";
-    ViewData["Heading"] = "Register";
-    ViewData["Content"] = "Please enter a username and email for this site below and click the Register button to finish logging in.";
+    ViewData["Heading"] = "Complete Registration";
+    ViewData["Content"] = "Please enter a username and email for this site below and click the Complete button to finish.";
 }
 
-
-<h2 id="external-login-title">Associate your @Model.ProviderDisplayName account.</h2>
-
-<div class="mb-5 pb-5 p-3">
-<div class="row">
+<div class="p-2 mb-5 pb-5">
+<div class="row p-3 bg-white">
     <div>
         <form asp-page-handler="Confirmation" asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-floating">
+             <div class="form-floating mb-2">
                 <input asp-for="Input.UserName" class="form-control" autocomplete="username" />
                 <label asp-for="Input.UserName" class="form-label"></label>
                 <span asp-validation-for="Input.UserName" class="text-danger"></span>
              </div>
-            <div class="form-floating">
+            <div class="form-floating mb-2">
                 <input asp-for="Input.Email" class="form-control" autocomplete="email" />
                 <label asp-for="Input.Email" class="form-label"></label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Complete</button>
         </form>
     </div>
 </div>

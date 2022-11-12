@@ -3,14 +3,14 @@
 @{
     ViewData["Title"] = "Delete Category : GeoMarker";
     ViewData["Heading"] = "Delete Category";
-    ViewData["Content"] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin lorem ante, eget rutrum ligula sagittis eu. Vestibulum suscipit orci a nunc fringilla maximus.";
+    ViewData["Content"] = "Delete your category, this can not be reversed.";
 }
 
 <div class="mt-4 pb-5">
     
     <p class="p-4">@Html.DisplayFor(model => model.Name)</p>
  
-    <div class="p-2 bg-orange d-flex justify-content-around ">
+    <div class="p-2 bg-blue d-flex justify-content-around ">
         <form asp-action="Delete">
             <span>
                 <input type="hidden" asp-for="CategoryId" />

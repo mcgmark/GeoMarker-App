@@ -129,7 +129,7 @@ namespace GeoMarker.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     // New user is created in AspNetUsers table, add this user to the customer role
-                    await _userManager.AddToRoleAsync(user, "Customer");
+                    await _userManager.AddToRoleAsync(user, "User");
 
                     _logger.LogInformation("User created a new account with password.");
 

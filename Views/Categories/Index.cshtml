@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Marker Categories : GeoMarker";
     ViewData["Heading"] = "Categories";
-    ViewData["Content"] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin lorem ante, eget rutrum ligula sagittis eu. Vestibulum suscipit orci a nunc fringilla maximus.";
+    ViewData["Content"] = "View markers by category.";
 }
 
 
@@ -18,10 +18,10 @@
                     <td class="d-flex flex-column flex-lg-row">
                         @if (User.IsInRole("Administrator"))
                    {
-                            <a asp-action="Edit" asp-route-id="@item.CategoryId" class="text-nowrap text-primary bg-lightgrey border border-primary p-2 m-1 ms-0 rounded small text-decoration-none text-center">Edit<i class="fa-solid fa-pencil"></i></a>
-                            <a asp-action="Delete" asp-route-id="@item.CategoryId" class="text-nowrap text-primary bg-lightgrey border border-primary  p-2 m-1 ms-0 rounded small text-decoration-none text-center">Delete<i class="fa-regular fa-trash-can"></i></a>
+                            <a asp-action="Edit" asp-route-id="@item.CategoryId" class="text-nowrap text-primary border border-primary p-2 m-1 ms-0 rounded small text-decoration-none text-center">Edit<i class="fa-solid fa-pencil"></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.CategoryId" class="text-nowrap text-primary border border-primary  p-2 m-1 ms-0 rounded small text-decoration-none text-center">Delete<i class="fa-regular fa-trash-can"></i></a>
                    }
-                            <a asp-action="Category" asp-controller="Markers" asp-route-id="@item.CategoryId" class="text-nowrap text-primary bg-lightgrey border border-primary p-2 m-1 ms-0 rounded small text-decoration-none text-center">View Category<i class="fa-solid fa-circle-arrow-right"></i></a>
+                            <a asp-action="Index" asp-controller="Markers" asp-route-category="@item.Name" class="btn btn-sm text-nowrap text-primary border border-primary p-2 m-1 ms-0 rounded small text-decoration-none text-center">View Category<i class="fa-solid fa-circle-arrow-right"></i></a>
              </td>
         </tr>
 }

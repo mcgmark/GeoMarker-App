@@ -4,13 +4,43 @@
 @{
     ViewData["Title"] = "Log in";
     ViewData["Heading"] = "Log In";
-    ViewData["Content"] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin lorem ante, eget rutrum ligula sagittis eu. Vestibulum suscipit orci a nunc fringilla maximus.";
+    ViewData["Content"] = "Log in with your account or through one of the other login providers.";
 }
 
+<section class="p-4 bg-white">
+    <h3 class="fs-5 lead">LOG IN WITH</h3>
+    @{
+        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+            <div>
+                <p>
+                    @foreach (var provider in Model.ExternalLogins)
+                    {
+                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                    }
+                </p>
+            </div>
+        </form>
+    }
+    <div class="p-3 bg-lightgrey">
+    <h3 class="fs-5 lead">TEST ACCOUNTS</h3>
+    <ul class="list-group">
+        <li class="list-group-item">
+            rich/Test123$
+        </li>
+        <li class="list-group-item">
+            Geo-Admin/Test123$
+        </li>
+        <li class="list-group-item">
+            user1/Test123$
+        </li>
+    </ul>
+    </div>
+</section>
 
-<div class="p-4 mb-5 pb-5">
-    <div>
+<div class="p-2 mb-5 pb-5">
+    <div class="p-3 bg-white">
         <section>
+            <h3 class="fs-5 lead">YOUR ACCOUNT</h3>
             <form id="account" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-floating">
@@ -47,24 +77,7 @@
                 </div>
             </form>
         </section>
-        <section>
-            <h3>Use another service to log in.</h3>
-            <hr />
-            @{
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-        </section>
     </div>
-    
 </div>
 
 @section Scripts {

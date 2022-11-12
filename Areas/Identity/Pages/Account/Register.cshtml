@@ -3,11 +3,27 @@
 @{
     ViewData["Title"] = "Register";
     ViewData["Heading"] = "Create Account";
-    ViewData["Content"] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin lorem ante, eget rutrum ligula sagittis eu. Vestibulum suscipit orci a nunc fringilla maximus.";
+    ViewData["Content"] = "To be able to access all of the features of the site you must create an account first.";
 }
 
-<div class="p-4 mb-5 pb-5">
-    <div>
+<section class="p-4 bg-white">
+    <h3 class="fs-5 lead">REGISTER WITH</h3>
+    @{
+        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+            <div>
+                <p>
+                    @foreach (var provider in Model.ExternalLogins)
+                    {
+                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                    }
+                </p>
+            </div>
+        </form>
+    }
+</section>
+<div class="p-2 mb-5 pb-5">
+    <div class="p-3 bg-white">
+        <h3 class="fs-5 lead">CREATE NEW ACCOUNT</h3>
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating">
@@ -33,23 +49,6 @@
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
         </form>
     </div>
-    <section>
-        <h3 class="display-7 mb-4 mt-4">Use another service to register.</h3>
-        <hr />
-        @{
-            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                <div>
-                    <p>
-                        @foreach (var provider in Model.ExternalLogins)
-                        {
-                            <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                        }
-                    </p>
-                </div>
-            </form>
-        }
-
-    </section>
 </div>
 
 @section Scripts {

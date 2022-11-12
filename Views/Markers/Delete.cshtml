@@ -2,8 +2,8 @@
 
 @{
     ViewData["Title"] = "Delete Marker : GeoMarker";
-    ViewData["Heading"] = @Model.Title;
-    ViewData["Content"] = @Model.Description;
+    ViewData["Heading"] = "Delete Marker";
+    ViewData["Content"] = "Are you sure you want to delete this marker? Can't be reversed.";
 }
 
 <div class="mb-5 pb-5">
@@ -23,7 +23,7 @@
         <li class="list-group-item">@Model.UserName</li>
         <li class="list-group-item">@Model.CreatedDate</li>
     </ul>
-    <div class="p-2 bg-orange d-flex justify-content-around">
+    <div class="p-2 bg-blue d-flex justify-content-around">
         <form asp-action="Delete">
             <span>
                 <input type="hidden" asp-for="MarkerId" />

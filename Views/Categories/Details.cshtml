@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Category Details : GeoMarker";
     ViewData["Heading"] = "Category Details";
-    ViewData["Content"] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sollicitudin lorem ante, eget rutrum ligula sagittis eu. Vestibulum suscipit orci a nunc fringilla maximus.";
+    ViewData["Content"] = "";
 }
 
 <div class="mb-4 pb-5">
@@ -16,7 +16,7 @@
         </dd>
     </dl>
 
-    <div class="bg-orange p-2 d-flex justify-content-around">
+    <div class="bg-blue p-2 d-flex justify-content-around">
         @if (User.IsInRole("Administrator"))
         {
             <a class="text-white text-decoration-none" asp-action="Edit" asp-route-id="@Model?.CategoryId"><i class="fa-solid fa-pencil"></i>Edit</a>

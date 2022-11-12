@@ -1,4 +1,7 @@
-﻿
+﻿// Bing Maps V8 SDK makes this possible. This code was written based on the documentation and examples from
+// https://learn.microsoft.com/en-us/bingmaps/v8-web-control/
+//
+
 
 //Initalize variables
 const titleInput = document.querySelector('input[id="title"');
@@ -22,8 +25,8 @@ function GetMap() {
 
     //Create new map object
     let map = new Microsoft.Maps.Map('#myMap', {
-        center: new Microsoft.Maps.Location(44.4116, -79.6667),
-        zoom: 10
+        center: new Microsoft.Maps.Location(37, -20),
+        zoom: 3
     });
 
     //Initalize infobox
@@ -70,6 +73,24 @@ function GetMap() {
     lookupButton.addEventListener('click', function () {
         ReverseGeoCode(map);
     });
+
+    //Function for address box auto suggest correct address
+
+    Microsoft.Maps.loadModule('Microsoft.Maps.AutoSuggest', function () {
+        let options = {
+            maxResults: 4,
+            map: map
+        };
+        let manager = new Microsoft.Maps.AutosuggestManager(options);
+        manager.attachAutosuggest('#address', '#searchBoxContainer', selectedSuggestion);
+    });
+
+    function selectedSuggestion(suggestionResult) {
+        map.setView({ bounds: suggestionResult.bestView });
+        CreateMarker(suggestionResult.location, map);
+        latitudeInput.value = suggestionResult.location.latitude;
+        longitudeInput.value = suggestionResult.location.longitude;
+    };
 };
 
 
@@ -139,39 +160,20 @@ function ReverseGeoCode(map) {
     });
 };
 
-//Function for address box auto suggest correct address
-function AutoSuggest(map) {
-    Microsoft.Maps.loadModule('Microsoft.Maps.AutoSuggest', function () {
-        let options = {
-            maxResults: 4,
-            map: map
-        };
-        let manager = new Microsoft.Maps.AutosuggestManager(options);
-        manager.attachAutosuggest('#address', '#searchBoxContainer', selectedSuggestion);
-    });
-
-    function selectedSuggestion(suggestionResult) {
-        map.setView({ bounds: suggestionResult.bestView });
-        Marker(suggestionResult.location, map);
-        latitudeInput.value = suggestionResult.location.latitude;
-        longitudeInput.value = suggestionResult.location.longitude;
-    };
-};
-
 //Infobox function
 function ShowInfoBox(e, map) {
     let closeButton = '<a href="javascript:CloseInfobox()" class="infobox-close">X</a>';
     if (e.target === undefined) {
         let location = new Microsoft.Maps.Location(e.geometry.y, e.geometry.x);
         infobox.setOptions({
-            htmlContent: `<div class="infobox shadow"><div class="title">${e.metadata.title}</div>${e.metadata.description}<div><a class="infobox-link" href="/Markers/Details/${e.metadata.id}">View</a></div></div>${closeButton}`,
+            htmlContent: `<div class="vstack infobox shadow-sm bg-white rounded-3 p-2"><div class="text-blue fs-6 fw-bold mb-1">${e.metadata.title}</div><div class="mb-2">${e.metadata.description}</div><div><a class="text-decoration-none fs-6" href="/Markers/Details/${e.metadata.id}">View Marker</a></div></div>${closeButton}`,
             location: location,
             visible: true
         });
     } else if (e.target !== undefined) {
         let location = new Microsoft.Maps.Location(e.target.geometry.y, e.target.geometry.x);
         infobox.setOptions({
-            htmlContent: `<div class="infobox shadow"><div class="title">${e.target.metadata.title}</div>${e.target.metadata.description}<div><a class="infobox-link" href="/Markers/Details/${e.target.metadata.id}">View</a></div></div>${closeButton}`,
+            htmlContent: `<div class="vstack infobox shadow-sm bg-white rounded-3 p-2"><div class="text-blue fs-6 fw-bold mb-1">${e.target.metadata.title}</div><div class="mb-2">${e.target.metadata.description}</div><div><a class="text-decoration-none fs-6" href="/Markers/Details/${e.target.metadata.id}">View Marker</a></div></div>${closeButton}`,
             location: location,
             visible: true
         });
@@ -187,7 +189,12 @@ function CloseInfobox() {
 //Function to get marker data from Model as JSON
 function GetMarkerData(map, callback) {
     let XHR = new XMLHttpRequest();
-    XHR.open("GET", "/Markers/GetMarkerData");
+    let category = window.location.search;
+    if (category[1] == undefined) {
+        XHR.open("GET", `/Markers/GetMarkerData`);
+    } else {
+        XHR.open("GET", `/Markers/GetMarkerData${category}`);
+    }
     XHR.send();
     XHR.addEventListener("readystatechange", function () {
         if ((XHR.status == 200) && (XHR.readyState == 4)) {
@@ -199,7 +206,6 @@ function GetMarkerData(map, callback) {
 
 //Populate Map with Markers from model JSON data
 function PopulateMarkers(parsedMarkerData, map) {
-    console.log(parsedMarkerData);
     for (let item in parsedMarkerData) {
         let location = new Microsoft.Maps.Location(`${parsedMarkerData[item].latitude}`, `${parsedMarkerData[item].longitude}`);
         let pushpin = new Microsoft.Maps.Pushpin(location);
@@ -209,6 +215,9 @@ function PopulateMarkers(parsedMarkerData, map) {
             id: `${parsedMarkerData[item].markerId}`
         };
         pushpin.setOptions({ color: '#0778ff' });
+
+        //Add the marker to the map entities for control
+        map.entities.push(pushpin);
 
         //Event listener for Marker mouseover and mouseout
         Microsoft.Maps.Events.addHandler(pushpin, 'mouseover', function (e) {
@@ -233,8 +242,7 @@ function PopulateMarkers(parsedMarkerData, map) {
                         markerList[i].classList.add("bg-lightorange");
                         markerList[i].scrollIntoView({ block: 'nearest' });
                     };
-                    ShowInfoBox(e, map);
-                    pushpin.setOptions({ color: '#ff0000' });
+                    ShowInfoBox(e, map, pushpin);
                 };
             };
         });
@@ -272,9 +280,6 @@ function PopulateMarkers(parsedMarkerData, map) {
                 CloseInfobox();
             });
         };
-
-        //Add the marker to the map entities for control
-        map.entities.push(pushpin);
     };
 };
 
@@ -284,3 +289,12 @@ function ClearInput() {
     longitudeInput.value = "";
     address.value = "";
 };
+
+window.addEventListener('resize', function () {
+    const sidebar = document.querySelector(".sidebar");
+    if (window.innerWidth > 575) {
+        if (!sidebar.classList.contains('show')) {
+            sidebar.classList.add('show');
+        };
+    };
+});

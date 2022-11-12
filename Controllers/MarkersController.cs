@@ -9,6 +9,7 @@ using GeoMarker.Data;
 using GeoMarker.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using System.Xml.Linq;
 
 namespace GeoMarker.Controllers
 {
@@ -24,19 +25,36 @@ namespace GeoMarker.Controllers
 
         // GET: Markers
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string category)
         {
-            var applicationDbContext = _context.Markers;
-            return View(await applicationDbContext.ToListAsync());
+            if (category == null)
+            {
+                var applicationDbContext = _context.Markers;
+                return View(applicationDbContext.ToList());
+            } 
+            else
+            {
+                ViewData["Category"] = category;
+                var applicationDbContext = _context.Markers.Where(p => p.Category.Name == category).ToList();
+                return View(applicationDbContext.ToList());
+            }
         }
 
 
         //Return model as JSON for Javascript 
         [AllowAnonymous]
-        public JsonResult GetMarkerData()
+        public JsonResult GetMarkerData(string category)
         {
-            var markerData = _context.Markers;
-            return Json(markerData);
+            if (category == null)
+            {
+                var markerData = _context.Markers;
+                return Json(markerData);
+            }
+            else
+            {
+                var markerData = _context.Markers.Where(p => p.Category.Name == category).ToList();
+                return Json(markerData);
+            }
         }
 
         [AllowAnonymous]
@@ -63,7 +81,7 @@ namespace GeoMarker.Controllers
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name");
-            ViewData["CurrentDate"] = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            ViewData["CurrentDate"] = DateTime.Now.ToString("D");
             return View();
         }
 

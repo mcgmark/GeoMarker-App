@@ -28,7 +28,7 @@
         <li id="createddate" class="list-group-item">@Model.CreatedDate</li>
     </ul>
     </div>
-    <div class="bg-orange p-2 d-flex justify-content-around">
+    <div class="bg-blue p-2 d-flex justify-content-around">
         @if (User.Identity?.Name == Model.UserName || User.IsInRole("Administrator"))
         {
             <a class="text-white text-decoration-none" asp-action="Edit" asp-route-id="@Model?.MarkerId"><i class="fa-solid fa-pencil"></i>Edit</a>
