@@ -11,7 +11,7 @@ html {
 }
 
 body {
-    overflow: hidden;
+   overflow: hidden;
 }
 
 p {
@@ -40,13 +40,14 @@ main {
 }
 
 #myMap {
-    height: calc(100vh - 85px);
+    height: calc(100vh - 95px);
 }
 
 .sidebar {
     background-color: #f8f8f8;
     overflow-y: auto !important;
     overflow-x: hidden !important;
+    height: calc(100vh - 80px);
 }
 
     .sidebar::-webkit-scrollbar {
@@ -102,10 +103,11 @@ a.infobox-close:link, a.infobox-close:visited {
     text-decoration: none;
     position: absolute;
     top: 4px;
-    right: 10px;
+    right: 5px;
     font-family: Arial, sans-serif;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 12px;
+    z-index: 150;
 }
 
 .bg-lightorange {

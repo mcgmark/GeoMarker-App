@@ -174,14 +174,14 @@ function ShowInfoBox(e, map) {
     if (e.target === undefined) {
         let location = new Microsoft.Maps.Location(e.geometry.y, e.geometry.x);
         infobox.setOptions({
-            htmlContent: `<div class="vstack infobox shadow bg-white rounded"><div class="text-dark p-2 fs-6 fw-bold mb-0">${e.metadata.title}</div><div class="mb-0 p-2">${e.metadata.description}</div><div class="p-2"><a class="text-decoration-none" href="/Markers/Details/${e.metadata.id}">View Marker <i class="fa-solid fa-caret-right me-auto"></i></a></div></div>${closeButton}`,
+            htmlContent: `<div class="vstack infobox shadow-lg bg-white rounded"><div class="text-primary p-2 fs-6 fw-bold mb-0">${e.metadata.title}</div><div class="mb-1 p-2 fs-7 lh-sm">${e.metadata.description}</div></div>${closeButton}`,
             location: location,
             visible: true
         });
     } else if (e.target !== undefined) {
         let location = new Microsoft.Maps.Location(e.target.geometry.y, e.target.geometry.x);
         infobox.setOptions({
-            htmlContent: `<div class="vstack infobox shadow bg-white rounded"><div class="text-dark p-2 fs-6 fw-bold mb-0">${e.target.metadata.title}</div><div class="mb-0 p-2">${e.target.metadata.description}</div><div class="p-2"><a class="text-decoration-none" href="/Markers/Details/${e.target.metadata.id}">View Marker <i class="fa-solid fa-caret-right"></i></a></div></div>${closeButton}`,
+            htmlContent: `<div class="vstack infobox shadow-lg bg-white rounded"><div class="text-primary p-2 fs-6 fw-bold mb-0">${e.target.metadata.title}</div><div class="mb-1 p-2 fs-7 lh-sm">${e.target.metadata.description}</div><div class="p-1  bg-primary p-1"><a class="small p-1 text-white text-decoration-none stretched-link" href="/Markers/Details/${e.target.metadata.id}">Click to View</a></div></div>${closeButton}`,
             location: location,
             visible: true
         });

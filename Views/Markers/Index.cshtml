@@ -19,7 +19,7 @@
     @if (Model.Count() == 0)
     {
         <div class="row bg-white p-4 mb-3 shadow-sm rounded-3">
-        <h2 class="display-6">Sorry, no markers in this category.</h2>
+        <p class="fs-4">Sorry, no markers in this category.</p>
         <div>
             <a class="btn border border-primary text-primary" asp-controller="Categories" asp-action="Index">
                 Back to Categories
@@ -29,7 +29,7 @@
     }
     
     @foreach (var item in Model) {
-        <div id="@item.MarkerId" class="card border-0 bg-white mb-2 marker-card rounded-3 m-2 shadow-sm" tabindex="0">
+        <div id="@item.MarkerId" class="card border-0 bg-white mt-2 marker-card rounded-3 shadow-sm" tabindex="0">
             <div class="d-flex">
                 @{ var link = "";
                     if (item.Photo != null){
@@ -42,7 +42,7 @@
                 </div>
            
                 <div class="p-3 w-100">
-                    <p class="m-0 p-0 fs-4 fw-bold">@Html.DisplayFor(modelItem => item.Title)</p>
+                    <p class="m-0 p-0 fs-4 fw-bold text-primary">@Html.DisplayFor(modelItem => item.Title)</p>
                     <p class="m-0 p-0 mt-1 fs-6 border-bottom pb-2">@Html.DisplayFor(modelItem => item.Description)</p>
                     <small>@Html.DisplayFor(modelItem => item.Category.Name)</small>
                     <p class="p-0 small mt-2 fw-bold text-black-50"><i class="fa-solid fa-user text-primary"></i>@Html.DisplayFor(modelItem => item.UserName)</p>

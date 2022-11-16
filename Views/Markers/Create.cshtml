@@ -20,7 +20,7 @@
                     <div class="col mb-2">
                         <div class="row">
                             <div class="form-group col-11 mb-3">
-                                <label asp-for="Address" class="control-label mb-2 fw-bold"></label>
+                                <label asp-for="Address" class="control-label mb-1"></label>
                                 <div id="searchBoxContainer"><input asp-for="Address" class="form-control-lg rounded-0 border-3 border-top-0 border-start-0 border-end-0 border-primary w-100" id="address" /></div>
                                 <small id="input-tip" class="form-text text-muted">Try typing a location, address, business name.</small>
                                 <span asp-validation-for="Address" class="text-danger"></span>
@@ -28,22 +28,22 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-5">
-                                <label asp-for="Latitude" class="control-label mb-2 mt-3 fw-bold"></label>
+                                <label asp-for="Latitude" class="control-label mb-1 mt-3"></label>
                                 <input asp-for="Latitude" class="form-control rounded-0 border-3 border-top-0 border-start-0 border-end-0 border-primary" id="latitude" />
                                 <span asp-validation-for="Latitude" class="text-danger"></span>
                             </div>
                             <div class="form-group col-5">
-                                <label asp-for="Longitude" class="control-label mb-2 mt-3 fw-bold"></label>
+                                <label asp-for="Longitude" class="control-label mb-1 mt-3"></label>
                                 <input asp-for="Longitude" class="form-control rounded-0 border-3 border-top-0 border-start-0 border-end-0 border-primary" id="longitude" />
                                 <span asp-validation-for="Longitude" class="text-danger"></span>
                             </div>
-                            <small id="input-tip" class="form-text text-muted">Enter the geocode then tap <strong>Get Address From Geocode</strong> below.</small>
+                            <small id="input-tip" class="form-text text-muted">Enter the geocode then tap <strong>Get Closest Address To Geocode</strong> below.</small>
                         </div>
                         <div class="row">
                             <div class="col">
                                 <div class="mt-4"><a href="#" class="text-white text-decoration-none p-2 bg-primary rounded-3" data-toggle="tooltip" data-placement="top" id="currentButton"><i class="fa-solid fa-location-crosshairs text-warning"></i>Get Current Location</a></div>
                             <div class="mt-3">
-                                    <a class="text-white text-decoration-none p-2 bg-primary rounded-3" href="#" id="lookupButton"><i class="fa-solid fa-magnifying-glass-location text-warning"></i>Get Closest Address to Geocode</a>
+                                    <a class="text-white text-decoration-none p-2 bg-primary rounded-3" href="#" id="lookupButton"><i class="fa-solid fa-magnifying-glass-location text-warning"></i>Get Closest Address To Geocode</a>
                             </div>
                             <div class="mt-3">
                                     <a href="#" class="text-white text-decoration-none p-2 bg-primary rounded-3" id="resetAddress"><i class="fa-solid fa-circle-xmark text-warning"></i>Delete Last Marker</a>
@@ -58,24 +58,24 @@
                 <div class="row">
                     <div class="col-11">
                         <div class="row form-group">
-                            <label asp-for="Title" class="control-label mb-2 fw-bold"></label>
+                            <label asp-for="Title" class="control-label mb-1"></label>
                             <input asp-for="Title" class="form-control rounded-0 border-3 border-top-0 border-start-0 border-end-0 border-primary" id="title" />
                             <small id="input-tip" class="form-text text-muted">Give your marker a title.</small>
                             <span asp-validation-for="Title" class="text-danger mb-2"></span>
                         </div>
                         <div class="row form-group">
-                            <label asp-for="Description" class="control-label mb-2 mt-2 fw-bold"></label>
+                            <label asp-for="Description" class="control-label mb-1 mt-2"></label>
                             <input asp-for="Description" class="form-control rounded-0 border-3 border-top-0 border-start-0 border-end-0 border-primary" />
                             <small id="input-tip" class="form-text text-muted">Give your marker a short description.</small>
                             <span asp-validation-for="Description" class="text-danger mb-2"></span>
                         </div>
                         <div class="row form-group">
-                            <label asp-for="CategoryId" class="control-label mb-2 mt-2 fw-bold "></label>
+                            <label asp-for="CategoryId" class="control-label mb-1 mt-2"></label>
                             <select asp-for="CategoryId" class="form-select rounded-0 border-3 border-top-0 border-start-0 border-end-0 border-primary w-75" asp-items="ViewBag.CategoryId"></select>
                             <small id="input-tip" class="form-text text-muted">Pick a category for your marker.</small>
                         </div>
                         <div class="row form-group">
-                            <label asp-for="Photo" class="control-label mb-2  mt-2 fw-bold"></label>
+                            <label asp-for="Photo" class="control-label mb-1 mt-2"></label>
                             <input asp-for="Photo" class="form-control rounded-0 border-3 border-top-0 border-start-0 border-end-0 border-primary w-75" type="file" />
                             <span asp-validation-for="Photo" class="text-danger"></span>
                         </div>
