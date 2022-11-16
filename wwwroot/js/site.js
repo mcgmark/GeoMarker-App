@@ -1,4 +1,4 @@
-﻿// Bing Maps V8 SDK makes this possible. This code was written based on the documentation and examples from
+﻿// Bing Maps V8 SDK makes this possible. This code was created/taken from the documentation and examples from
 // https://learn.microsoft.com/en-us/bingmaps/v8-web-control/
 //
 
@@ -24,9 +24,9 @@ let stringPathName;
 function GetMap() {
 
     //Create new map object
-    let map = new Microsoft.Maps.Map('#myMap', {
+    map = new Microsoft.Maps.Map('#myMap', {
         center: new Microsoft.Maps.Location(37, -20),
-        zoom: 3
+        zoom: 2
     });
 
     //Initalize infobox
@@ -52,8 +52,8 @@ function GetMap() {
     //Map Click Handler
     Microsoft.Maps.Events.addHandler(map, 'click', function (event) {
         stringPathName = window.location.pathname;
-        if (event.targetType == "map") {
-            if (stringPathName == "/Markers/Create") {
+        if (stringPathName == "/Markers/Create") {
+            if (event.targetType == "map") {
                 CreateMarkerMapClick(event, map);
             };
         };
@@ -74,8 +74,7 @@ function GetMap() {
         ReverseGeoCode(map);
     });
 
-    //Function for address box auto suggest correct address
-
+    //Function for address box and auto suggest correct address
     Microsoft.Maps.loadModule('Microsoft.Maps.AutoSuggest', function () {
         let options = {
             maxResults: 4,
@@ -97,7 +96,10 @@ function GetMap() {
 //Function to drop new marker
 function CreateMarker(location, map) {
     let pushpin = new Microsoft.Maps.Pushpin(location);
-    pushpin.setOptions({ color: 'red' });
+    pushpin.setOptions({
+        color: 'red',
+        draggable: true
+    });
     map.entities.push(pushpin);
 
     //Create page marker click handler
@@ -110,6 +112,10 @@ function CreateMarker(location, map) {
             };
         };
     });
+
+    Microsoft.Maps.Events.addHandler(pushpin, 'dragend', function (e) {
+        CreateMarkerMapClick(e, map);
+    });
 };
 
 //Function to drop marker on map click
@@ -119,6 +125,7 @@ function CreateMarkerMapClick(event, map) {
     //Set input boxes to coordinates values
     latitudeInput.value = event.location.latitude;
     longitudeInput.value = event.location.longitude;
+    ReverseGeoCode(map);
 };
 
 //Function for reset button
@@ -139,6 +146,7 @@ function CurrentLocation(map) {
         //Inject values into input boxes
         latitudeInput.value = position.coords.latitude;
         longitudeInput.value = position.coords.longitude;
+        ReverseGeoCode(map);
     });
 };
 
@@ -166,14 +174,14 @@ function ShowInfoBox(e, map) {
     if (e.target === undefined) {
         let location = new Microsoft.Maps.Location(e.geometry.y, e.geometry.x);
         infobox.setOptions({
-            htmlContent: `<div class="vstack infobox shadow-sm bg-white rounded-3 p-2"><div class="text-blue fs-6 fw-bold mb-1">${e.metadata.title}</div><div class="mb-2">${e.metadata.description}</div><div><a class="text-decoration-none fs-6" href="/Markers/Details/${e.metadata.id}">View Marker</a></div></div>${closeButton}`,
+            htmlContent: `<div class="vstack infobox shadow bg-white rounded"><div class="text-dark p-2 fs-6 fw-bold mb-0">${e.metadata.title}</div><div class="mb-0 p-2">${e.metadata.description}</div><div class="p-2"><a class="text-decoration-none" href="/Markers/Details/${e.metadata.id}">View Marker <i class="fa-solid fa-caret-right me-auto"></i></a></div></div>${closeButton}`,
             location: location,
             visible: true
         });
     } else if (e.target !== undefined) {
         let location = new Microsoft.Maps.Location(e.target.geometry.y, e.target.geometry.x);
         infobox.setOptions({
-            htmlContent: `<div class="vstack infobox shadow-sm bg-white rounded-3 p-2"><div class="text-blue fs-6 fw-bold mb-1">${e.target.metadata.title}</div><div class="mb-2">${e.target.metadata.description}</div><div><a class="text-decoration-none fs-6" href="/Markers/Details/${e.target.metadata.id}">View Marker</a></div></div>${closeButton}`,
+            htmlContent: `<div class="vstack infobox shadow bg-white rounded"><div class="text-dark p-2 fs-6 fw-bold mb-0">${e.target.metadata.title}</div><div class="mb-0 p-2">${e.target.metadata.description}</div><div class="p-2"><a class="text-decoration-none" href="/Markers/Details/${e.target.metadata.id}">View Marker <i class="fa-solid fa-caret-right"></i></a></div></div>${closeButton}`,
             location: location,
             visible: true
         });
@@ -290,6 +298,8 @@ function ClearInput() {
     address.value = "";
 };
 
+
+//Event listener to show map if it's hidden at specific viewpoint width
 window.addEventListener('resize', function () {
     const sidebar = document.querySelector(".sidebar");
     if (window.innerWidth > 575) {

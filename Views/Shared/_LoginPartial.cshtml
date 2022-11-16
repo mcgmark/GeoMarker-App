@@ -7,22 +7,22 @@
 {
  
         <li class="nav-item">
-            <a class="nav-link text-white fs-6 fw-bold" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="fa-solid fa-gears"></i>@User.Identity?.Name</a>
+            <a class="nav-link text-white fs-6" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="fa-solid fa-gears text-warning"></i>@User.Identity?.Name</a>
          </li>
         <li class="nav-item">
              <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link text-white bg-blue border-warning border rounded p-2 text-center fs-6 fw-bold">Logout</button>
+                <button type="submit" class="nav-link text-white bg-blue border-warning border rounded p-2 text-center fs-6">Logout</button>
              </form>
         </li>
 }
 else
 {
     
-    <li class="nav-item me-1">
-        <a class="nav-link text-white bg-blue border border-warning rounded p-2 text-center fs-6 fw-bold" asp-area="Identity" asp-page="/Account/Register">Register</a>
+    <li class="nav-item me-2 mb-1">
+        <a class="nav-link text-white bg-blue border border-warning rounded p-1 text-center fs-6" asp-area="Identity" asp-page="/Account/Register">Register</a>
     </li>
-    <li class="nav-item me-1">
-            <a class="nav-link text-white bg-blue border-warning border rounded p-2 text-center fs-6 fw-bold" asp-area="Identity" asp-page="/Account/Login">Login</a>
+    <li class="nav-item me-2 mb-1">
+            <a class="nav-link text-white bg-blue border-warning border rounded p-1 text-center fs-6" asp-area="Identity" asp-page="/Account/Login">Login</a>
     </li>
    
 }

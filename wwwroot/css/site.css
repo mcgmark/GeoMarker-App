@@ -31,7 +31,7 @@ main {
 }
 
 .marker-image-small {
-    min-width: 150px;
+    min-width: 160px;
 }
 
 .container-fluid {
@@ -61,10 +61,6 @@ main {
         background-color: #d9d9d9; /* color of the scroll thumb */
         border-radius: 50px; /* roundness of the scroll thumb */
     }
-
-header img {
-    
-}
 
 .bg-orange {
     background-color: #ffd738 !important;
@@ -96,20 +92,20 @@ i {
 }
 
 .infobox {
-    max-width: 250px;
+    max-width: 200px;
     pointer-events: auto !important;
     line-height: 1em;
 }
 
 a.infobox-close:link, a.infobox-close:visited {
-    color: #0778ff;
+    color: #333;
     text-decoration: none;
     position: absolute;
     top: 4px;
     right: 10px;
     font-family: Arial, sans-serif;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 15px;
 }
 
 .bg-lightorange {

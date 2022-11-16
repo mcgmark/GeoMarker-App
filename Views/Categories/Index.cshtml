@@ -7,8 +7,8 @@
 }
 
 
-<div class="p-4 pb-5">
-    <table class="table table-hover col-9">
+<div class="row bg-white p-4 mb-3 shadow-sm">
+    <table class="table table-hover">
     <tbody>
 @foreach (var item in Model) {
         <tr>
@@ -27,4 +27,8 @@
 }
     </tbody>
 </table>
+@if (User.IsInRole("Administrator"))
+    {
+        <a asp-action="Create" asp-controller="Categories" class="flex-fill me-md-1 mb-1 zindex-top text-primary p-1 border border-primary rounded small text-decoration-none text-center"><i class="fa-solid fa-pencil"></i>Create New Category</a>
+    }
 </div>

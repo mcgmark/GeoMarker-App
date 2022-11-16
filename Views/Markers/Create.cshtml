@@ -3,10 +3,10 @@
 @{
     ViewData["Title"] = "Create Marker : GeoMarker";
     ViewData["Heading"] = "Create Marker";
-    ViewData["Content"] = "You can start by tapping on the map to drop a marker, start typing an address, or get your current location.";
+    ViewData["Content"] = "You can start by tapping on the map to drop a marker, type an address, or get your current location by clicking the button.";
 }
 
-<div class="h-100">
+<div class="pb-5">
     <form asp-action="Create" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
@@ -14,67 +14,69 @@
             <span asp-validation-for="UserName" class="text-danger"></span>
         </div>
         <div>
-            <p class="fw-bold fs-5 text-white bg-primary p-2 ps-4 shadow-sm">Step 1 - Location</p>
+            <p class="fs-5 text-white bg-primary p-2 ps-4 shadow-sm">Step 1 - Location</p>
             <div class="container ms-3">
                 <div class="row">
                     <div class="col mb-2">
                         <div class="row">
                             <div class="form-group col-11 mb-3">
                                 <label asp-for="Address" class="control-label mb-2 fw-bold"></label>
-                                <div id="searchBoxContainer"><input asp-for="Address" class="form-control-lg rounded-0 border-top-0 border-start-0 border-end-0 border-primary w-100" id="address" /></div>
-                                <small id="input-tip" class="form-text text-muted">Start typing a location, address, business name, etc.</small>
+                                <div id="searchBoxContainer"><input asp-for="Address" class="form-control-lg rounded-0 border-3 border-top-0 border-start-0 border-end-0 border-primary w-100" id="address" /></div>
+                                <small id="input-tip" class="form-text text-muted">Try typing a location, address, business name.</small>
                                 <span asp-validation-for="Address" class="text-danger"></span>
-
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-5">
                                 <label asp-for="Latitude" class="control-label mb-2 mt-3 fw-bold"></label>
-                                <input asp-for="Latitude" class="form-control rounded-0 border-2 border-top-0 border-start-0 border-end-0 border-primary" id="latitude" />
+                                <input asp-for="Latitude" class="form-control rounded-0 border-3 border-top-0 border-start-0 border-end-0 border-primary" id="latitude" />
                                 <span asp-validation-for="Latitude" class="text-danger"></span>
                             </div>
                             <div class="form-group col-5">
                                 <label asp-for="Longitude" class="control-label mb-2 mt-3 fw-bold"></label>
-                                <input asp-for="Longitude" class="form-control rounded-0 border-2 border-top-0 border-start-0 border-end-0 border-primary" id="longitude" />
+                                <input asp-for="Longitude" class="form-control rounded-0 border-3 border-top-0 border-start-0 border-end-0 border-primary" id="longitude" />
                                 <span asp-validation-for="Longitude" class="text-danger"></span>
                             </div>
-                            <small id="input-tip" class="form-text text-muted">Enter the geocode then get the closest address from the geocode.</small>
+                            <small id="input-tip" class="form-text text-muted">Enter the geocode then tap <strong>Get Address From Geocode</strong> below.</small>
                         </div>
                         <div class="row">
                             <div class="col">
-                            <div class="mt-4"><a href="#" class="text-white text-decoration-none p-2 bg-primary rounded-3" data-toggle="tooltip" data-placement="top" id="currentButton"><i class="fa-solid fa-location-crosshairs"></i> Get Current Location</a></div>
+                                <div class="mt-4"><a href="#" class="text-white text-decoration-none p-2 bg-primary rounded-3" data-toggle="tooltip" data-placement="top" id="currentButton"><i class="fa-solid fa-location-crosshairs text-warning"></i>Get Current Location</a></div>
                             <div class="mt-3">
-                                <a class="text-white text-decoration-none p-2 bg-primary rounded-3" href="#" id="lookupButton"><i class="fa-solid fa-magnifying-glass-location"></i>Get Address From Geocode</a>
+                                    <a class="text-white text-decoration-none p-2 bg-primary rounded-3" href="#" id="lookupButton"><i class="fa-solid fa-magnifying-glass-location text-warning"></i>Get Closest Address to Geocode</a>
                             </div>
                             <div class="mt-3">
-                                <a href="#" class="text-white text-decoration-none p-2 bg-primary rounded-3" id="resetAddress"><i class="fa-solid fa-circle-xmark"></i>Delete Last Marker</a>
+                                    <a href="#" class="text-white text-decoration-none p-2 bg-primary rounded-3" id="resetAddress"><i class="fa-solid fa-circle-xmark text-warning"></i>Delete Last Marker</a>
                             </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <p class="fw-bold fs-5 text-white bg-primary p-2 ps-4 shadow-sm mt-3">Step 2 - Details</p>
+            <p class="fs-5 text-white bg-primary p-2 ps-4 shadow-sm mt-3">Step 2 - Details</p>
             <div class="container ms-3">
                 <div class="row">
                     <div class="col-11">
                         <div class="row form-group">
                             <label asp-for="Title" class="control-label mb-2 fw-bold"></label>
-                            <input asp-for="Title" class="form-control rounded-0 border-2 border-top-0 border-start-0 border-end-0 border-primary" id="title" placeholder="Enter a title for your marker" />
+                            <input asp-for="Title" class="form-control rounded-0 border-3 border-top-0 border-start-0 border-end-0 border-primary" id="title" />
+                            <small id="input-tip" class="form-text text-muted">Give your marker a title.</small>
                             <span asp-validation-for="Title" class="text-danger mb-2"></span>
                         </div>
                         <div class="row form-group">
                             <label asp-for="Description" class="control-label mb-2 mt-2 fw-bold"></label>
-                            <input asp-for="Description" class="form-control rounded-0 border-2 border-top-0 border-start-0 border-end-0 border-primary" placeholder="Give your marker a description" />
+                            <input asp-for="Description" class="form-control rounded-0 border-3 border-top-0 border-start-0 border-end-0 border-primary" />
+                            <small id="input-tip" class="form-text text-muted">Give your marker a short description.</small>
                             <span asp-validation-for="Description" class="text-danger mb-2"></span>
                         </div>
                         <div class="row form-group">
-                            <label asp-for="CategoryId" class="control-label mb-2mt-2 fw-bold "></label>
-                            <select asp-for="CategoryId" class="form-select rounded-0 border-2 border-top-0 border-start-0 border-end-0 border-primary mb-4 w-75" asp-items="ViewBag.CategoryId"></select>
+                            <label asp-for="CategoryId" class="control-label mb-2 mt-2 fw-bold "></label>
+                            <select asp-for="CategoryId" class="form-select rounded-0 border-3 border-top-0 border-start-0 border-end-0 border-primary w-75" asp-items="ViewBag.CategoryId"></select>
+                            <small id="input-tip" class="form-text text-muted">Pick a category for your marker.</small>
                         </div>
                         <div class="row form-group">
                             <label asp-for="Photo" class="control-label mb-2  mt-2 fw-bold"></label>
-                            <input asp-for="Photo" class="form-control rounded-0 border-2 border-top-0 border-start-0 border-end-0 border-primary w-75" type="file" />
+                            <input asp-for="Photo" class="form-control rounded-0 border-3 border-top-0 border-start-0 border-end-0 border-primary w-75" type="file" />
                             <span asp-validation-for="Photo" class="text-danger"></span>
                         </div>
                         <small id="input-tip" class="form-text text-muted mb-4">You can take a photo or upload a photo from your device.</small>
@@ -86,10 +88,10 @@
                 <span asp-validation-for="CreatedDate" class="text-danger"></span>
             </div>
         </div>
-        <div class="mt-3 p-2 ps-3 pe-3 mb-5 d-flex bg-blue">
-            <span class="text-white p-2 fs-5"><i class="fa-solid fa-check"></i><input type="submit" value="Create" class="btn p-0 text-white fs-5" /></span>
+        <div class="mt-4 p-3 ps-3 pe-3 mb-5 d-flex bg-blue">
+            <span class="text-white fs-5"><i class="fa-solid fa-check text-warning"></i><input type="submit" value="Create" class="btn p-0 text-white fs-5" /></span>
 
-            <a class="text-white text-decoration-none p-2 fs-5 ms-auto" asp-action="Index"><i class="fa-regular fa-rectangle-xmark"></i>Cancel</a>
+            <a class="text-white text-decoration-none fs-5 ms-auto" asp-action="Index"><i class="fa-regular fa-rectangle-xmark text-warning"></i>Cancel</a>
         </div>
     </form>
 </div>

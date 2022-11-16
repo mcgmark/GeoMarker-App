@@ -29,13 +29,13 @@ namespace GeoMarker.Controllers
         {
             if (category == null)
             {
-                var applicationDbContext = _context.Markers;
+                var applicationDbContext = _context.Markers.Include(m => m.Category);
                 return View(applicationDbContext.ToList());
             } 
             else
             {
                 ViewData["Category"] = category;
-                var applicationDbContext = _context.Markers.Where(p => p.Category.Name == category).ToList();
+                var applicationDbContext = _context.Markers.Include(m => m.Category).Where(p => p.Category.Name == category).ToList();
                 return View(applicationDbContext.ToList());
             }
         }

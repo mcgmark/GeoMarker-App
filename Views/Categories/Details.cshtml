@@ -6,7 +6,7 @@
     ViewData["Content"] = "";
 }
 
-<div class="mb-4 pb-5">
+<div class="mb-4 pb-5 bg-white p-4 shadow-sm">
     <dl class="row p-4">
         <dt class = "col-sm-6">
             @Html.DisplayNameFor(model => model.Name)
@@ -16,13 +16,13 @@
         </dd>
     </dl>
 
-    <div class="bg-blue p-2 d-flex justify-content-around">
+    <div class="p-2 d-flex">
         @if (User.IsInRole("Administrator"))
         {
-            <a class="text-white text-decoration-none" asp-action="Edit" asp-route-id="@Model?.CategoryId"><i class="fa-solid fa-pencil"></i>Edit</a>
-            <a class="text-white text-decoration-none" asp-action="Delete" asp-route-id="@Model?.CategoryId">Delete<i class="fa-regular fa-trash-can"></i></a>
+            <a class="text-white bg-primary p-2 rounded me-1 text-decoration-none" asp-action="Edit" asp-route-id="@Model?.CategoryId"><i class="fa-solid fa-pencil"></i>Edit</a>
+            <a class="text-white bg-primary p-2 rounded me-1 text-decoration-none" asp-action="Delete" asp-route-id="@Model?.CategoryId">Delete<i class="fa-regular fa-trash-can"></i></a>
         }
-        <a class="text-white text-decoration-none" asp-action="Index"><i class="fa-solid fa-map-location"></i>Back to List</a>
+        <a class="text-white bg-primary p-2 rounded me-1 text-decoration-none" asp-action="Index"><i class="fa-solid fa-map-location"></i>Back to List</a>
     </div>
 </div>
 

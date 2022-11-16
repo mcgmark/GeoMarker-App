@@ -14,18 +14,22 @@
     }
 }
 
-<div class="card-group vstack mb-5 pb-5 p-3">
+<div class="card-group vstack mb-5 pb-5 p-2 pt-0">
+    
     @if (Model.Count() == 0)
     {
+        <div class="row bg-white p-4 mb-3 shadow-sm rounded-3">
         <h2 class="display-6">Sorry, no markers in this category.</h2>
-        <div class="mt-3">
-            <a class="btn bg-lightgrey border border-primary text-primary" asp-controller="Categories" asp-action="Index">
+        <div>
+            <a class="btn border border-primary text-primary" asp-controller="Categories" asp-action="Index">
                 Back to Categories
             </a>
         </div>
+        </div>
     }
+    
     @foreach (var item in Model) {
-        <div id="@item.MarkerId" class="card border-0 bg-white mb-2 marker-card" tabindex="0">
+        <div id="@item.MarkerId" class="card border-0 bg-white mb-2 marker-card rounded-3 m-2 shadow-sm" tabindex="0">
             <div class="d-flex">
                 @{ var link = "";
                     if (item.Photo != null){
@@ -34,22 +38,21 @@
                         link = "placeholder.png";
                     };
                 }
-                <div class="marker-image-small w-sm-25 flex-grow-0" style="background-image: url('@Url.Content("~/img/markers/" + @link + "")'); background-position: center; background-size: cover;">
+                <div class="marker-image-small flex-grow-0" style="background-image: url('@Url.Content("~/img/markers/" + @link + "")'); background-position: center; background-size: cover;">
                 </div>
            
-                <div class="p-3">
-                    <h4 class="m-0 p-0">@Html.DisplayFor(modelItem => item.Title)</h4>
-                    <p class="m-0 p-0 mt-1">@Html.DisplayFor(modelItem => item.Description)</p>
-                    <small class="p-0 mt-1">@Html.DisplayFor(modelItem => item.Category.Name)</small>
-                    <p class="p-0 small mt-3 fw-bold text-black-50">@Html.DisplayFor(modelItem => item.UserName)<i class="fa-solid fa-user text-primary"></i></p>
-                    <div class="marker-list-buttons rounded">
-                        <div class="d-flex flex-column flex-lg-row">
-                            <a class="text-primary border border-primary p-2 ms-0 rounded small text-decoration-none text-center stretched-link" id="marker-link" asp-action="Details" asp-route-id="@item.MarkerId">View<i class="fa-solid fa-circle-arrow-right"></i></a>
-                            @if (User.Identity?.Name == item.UserName || User.IsInRole("Administrator"))
+                <div class="p-3 w-100">
+                    <p class="m-0 p-0 fs-4 fw-bold">@Html.DisplayFor(modelItem => item.Title)</p>
+                    <p class="m-0 p-0 mt-1 fs-6 border-bottom pb-2">@Html.DisplayFor(modelItem => item.Description)</p>
+                    <small>@Html.DisplayFor(modelItem => item.Category.Name)</small>
+                    <p class="p-0 small mt-2 fw-bold text-black-50"><i class="fa-solid fa-user text-primary"></i>@Html.DisplayFor(modelItem => item.UserName)</p>
+                    <div class="marker-list-buttons">
+                        <div class="d-flex flex-column flex-md-row flex-md-nowrap justify-content-around">
+                            <a class="flex-fill me-md-1 mb-1 zindex-top text-primary p-1 border border-primary rounded small text-decoration-none text-center" id="marker-link" asp-action="Details" asp-route-id="@item.MarkerId"><i class="fa-solid fa-circle-arrow-right"></i>View</a>
+                            @if (User.Identity.Name == item.UserName || User.IsInRole("Administrator"))
                             {
-                                <a asp-action="Edit" asp-route-id="@item.MarkerId" class="zindex-top text-primary p-2 border border-primary rounded small text-decoration-none text-center ms-0 ms-lg-1">Edit<i class="fa-solid fa-pencil"></i></a>
-                                <a asp-action="Delete" asp-route-id="@item.MarkerId" class="zindex-top text-primary p-2 border border-primary rounded small text-decoration-none text-center ms-0 ms-lg-1">Delete<i class="fa-regular fa-trash-can"></i></a>
-                           
+                                <a asp-action="Edit" asp-route-id="@item.MarkerId" class="flex-fill me-md-1 mb-1 zindex-top text-primary p-1 border border-primary rounded small text-decoration-none text-center"><i class="fa-solid fa-pencil"></i>Edit</a>
+                                <a asp-action="Delete" asp-route-id="@item.MarkerId" class="flex-fill me-md-1 mb-1 zindex-top text-primary p-1 border border-primary rounded small text-decoration-none text-center"><i class="fa-regular fa-trash-can"></i>Delete</a>
                             }
                         </div>
                     </div>

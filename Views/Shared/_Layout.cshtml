@@ -22,16 +22,16 @@
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-white fs-7 fw-bold" asp-area="" asp-controller="Markers" asp-action="Index"><i class="fa-solid fa-location-pin text-warning"></i>View Markers</a>
+                            <a class="nav-link text-white fs-7" asp-area="" asp-controller="Markers" asp-action="Index"><i class="fa-solid fa-location-pin text-warning"></i>View Markers</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white fs-7 fw-bold" asp-area="" asp-controller="Categories" asp-action="Index"><i class="fa-solid fa-list text-warning"></i>View Categories</a>
+                            <a class="nav-link text-white fs-7" asp-area="" asp-controller="Categories" asp-action="Index"><i class="fa-solid fa-list text-warning"></i>View Categories</a>
                         </li>
 
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li>
-                                <a class="nav-link text-white fs-7 fw-bold" asp-controller="Markers" asp-action="Create"><i class="fa-solid fa-map-location text-warning"></i>Create New Marker</a>
+                                <a class="nav-link text-white fs-7" asp-controller="Markers" asp-action="Create"><i class="fa-solid fa-map-location text-warning"></i>Create New Marker</a>
                             </li>
                         }
                     </ul>
@@ -47,18 +47,18 @@
     </header>
     <div>
         <main role="main" class="container-fluid">
-            <div class="d-flex flex-wrap flex-md-nowrap h-95">
-                <div class="sidebar vh-100 col-xs-12 col-sm-6 col-lg-5 col-xl-4 overflow-scroll collapse show sidebar-toggle">
+            <div class="d-flex flex-wrap flex-nowrap">
+                <div class="sidebar vh-100 col-12 col-sm-6 col-xl-4 col-xxl-3 overflow-scroll collapse show sidebar-toggle">
                     <div class="page-header bg-orange p-4 shadow-sm">
-                        <h1 class="display-2">@ViewData["Heading"]</h1>
+                        <h1 class="display-3">@ViewData["Heading"]</h1>
                         <p class="fs-6">@ViewData["Content"]</p>
                     </div>
                     <div class="mb-5 pb-5">
                         @RenderBody()
                     </div>
                  </div>
-                <div class="mymap-container col-xs-12 col-sm-6 col-lg-6 col-lg-7 col-xl-8">
-                    <div id="myMap" class="overflow-hidden"></div>
+                <div class="mymap-container col-12 col-sm-6 col-xl-8 col-xxl-9">
+                    <partial name="_MapPartial" />
                     <footer class="footer position-sticky bottom-0 text-center text-white small bg-blue text-wrap">
                     &copy; 2022 - GeoMarker - Mark McGuigan 020024941 - Server-Side Scripting-ASP.NET - COMP2084 Fall 2022 - <a href="https://github.com/mcgmark/GeoMarker" target="_blank" class="text-white text-decoration-none">View on Github</a> - <a class="text-white text-decoration-none" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                 </footer>

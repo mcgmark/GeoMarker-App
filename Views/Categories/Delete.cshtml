@@ -3,23 +3,22 @@
 @{
     ViewData["Title"] = "Delete Category : GeoMarker";
     ViewData["Heading"] = "Delete Category";
-    ViewData["Content"] = "Delete your category, this can not be reversed.";
+    ViewData["Content"] = "Delete category this cann't be reversed.";
 }
 
-<div class="mt-4 pb-5">
+<div class="bg-white p-4 mb-3 shadow-sm">
     
-    <p class="p-4">@Html.DisplayFor(model => model.Name)</p>
+    <p class="fs-4">@Html.DisplayFor(model => model.Name)</p>
  
-    <div class="p-2 bg-blue d-flex justify-content-around ">
-        <form asp-action="Delete">
-            <span>
+    <div class="hstack">
+        <div class="text-white bg-primary p-2 rounded me-1">
+        <form asp-action="Delete">     
                 <input type="hidden" asp-for="CategoryId" />
-                <span class="text-white"><i class="fa-regular fa-trash-can"></i><input type="submit" value="Delete" class="btn p-0 text-white" /></span>
-            </span>
+                <i class="fa-regular fa-trash-can"></i><input type="submit" value="Delete" class="btn p-0 text-white" />
         </form>
-
-        <div>
-            <a class="text-white" asp-action="Details" asp-route-id="@Model?.CategoryId"><i class="fa-regular fa-rectangle-xmark"></i>Cancel</a>
+        </div>
+        <div class="bg-primary p-2 rounded me-1">
+            <a class="text-white text-decoration-none" asp-action="Details" asp-route-id="@Model?.CategoryId"><i class="fa-regular fa-rectangle-xmark"></i>Cancel</a>
         </div>
     </div>
 </div>
