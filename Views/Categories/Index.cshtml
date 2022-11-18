@@ -28,9 +28,10 @@
 }
     </tbody>
 </table>
+        @if (User.IsInRole("Administrator"))
+        {
+            <a asp-action="Create" asp-controller="Categories" class="flex-fill me-md-1 mb-1 zindex-top text-primary p-2 border border-primary rounded small text-decoration-none text-center"><i class="fa-solid fa-pencil"></i>Create New Category</a>
+        }
     </div>
-@if (User.IsInRole("Administrator"))
-    {
-        <a asp-action="Create" asp-controller="Categories" class="flex-fill me-md-1 mb-1 zindex-top text-primary p-1 border border-primary rounded small text-decoration-none text-center"><i class="fa-solid fa-pencil"></i>Create New Category</a>
-    }
+
 </div>

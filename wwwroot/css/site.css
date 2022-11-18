@@ -55,7 +55,7 @@ main {
     }
 
     .sidebar::-webkit-scrollbar-track {
-        background: #f8f8f8; /* color of the tracking area */
+        background: #fff; /* color of the tracking area */
     }
 
     .sidebar::-webkit-scrollbar-thumb {
@@ -69,10 +69,6 @@ main {
 
 .bg-lightgrey {
     background-color: #f7f7f7;
-}
-
-.card-img-top-large {
-    width: 100%;
 }
 
 .bg-blue {

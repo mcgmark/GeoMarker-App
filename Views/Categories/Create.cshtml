@@ -15,10 +15,10 @@
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <span class="bg-primary p-2 rounded me-1 d-block">
-                <i class="fa-solid fa-check"></i><input type="submit" value="Create" class="btn" />
+            <span class="bg-primary p-2 rounded">
+                <i class="fa-solid fa-check text-white"></i><input type="submit" value="Create" class="btn text-white" />
             </span>
-                <div class="border-primary"><a class="p-2 display-7 text-white bg-primary p-2 rounded me-1" asp-action="Index"><i class="fa-regular fa-rectangle-xmark"></i>Cancel</a></div>
+                <div class="border-primary"><a class="p-2 display-7 text-white bg-primary rounded text-decoration-none" asp-action="Index"><i class="fa-regular fa-rectangle-xmark"></i>Cancel</a></div>
         </form>
     </div>
 </div>

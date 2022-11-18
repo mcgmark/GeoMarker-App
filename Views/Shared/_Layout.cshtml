@@ -21,19 +21,18 @@
                 </button>
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-white fs-7" asp-area="" asp-controller="Markers" asp-action="Index"><i class="fa-solid fa-location-pin text-warning"></i>View Markers</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white fs-7" asp-area="" asp-controller="Categories" asp-action="Index"><i class="fa-solid fa-list text-warning"></i>View Categories</a>
-                        </li>
-
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li>
-                                <a class="nav-link text-white fs-7" asp-controller="Markers" asp-action="Create"><i class="fa-solid fa-map-location text-warning"></i>Create New Marker</a>
+                                <a class="me-3 nav-link text-primary small text-white fw-bold" asp-controller="Markers" asp-action="Create"><i class="fa-solid fa-map-location text-primary text-warning"></i>CREATE MARKER</a>
                             </li>
                         }
+                        <li class="nav-item">
+                            <a class="nav-link text-primary text-white fw-bold small" asp-area="" asp-controller="Markers" asp-action="Index"><i class="fa-solid fa-location-pin text-warning"></i>MARKER LIST</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-primary text-white fw-bold small" asp-area="" asp-controller="Categories" asp-action="Index"><i class="fa-solid fa-list text-warning"></i>CATEGORIES</a>
+                        </li>
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

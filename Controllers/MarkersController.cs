@@ -30,13 +30,13 @@ namespace GeoMarker.Controllers
             if (category == null)
             {
                 var applicationDbContext = _context.Markers.Include(m => m.Category);
-                return View(applicationDbContext.ToList());
+                return View(applicationDbContext.OrderByDescending(b => b.MarkerId).ToList());
             } 
             else
             {
                 ViewData["Category"] = category;
                 var applicationDbContext = _context.Markers.Include(m => m.Category).Where(p => p.Category.Name == category).ToList();
-                return View(applicationDbContext.ToList());
+                return View(applicationDbContext.OrderByDescending(b => b.MarkerId).ToList());
             }
         }
 
@@ -47,12 +47,12 @@ namespace GeoMarker.Controllers
         {
             if (category == null)
             {
-                var markerData = _context.Markers;
+                var markerData = _context.Markers.OrderByDescending(b => b.MarkerId);
                 return Json(markerData);
             }
             else
             {
-                var markerData = _context.Markers.Where(p => p.Category.Name == category).ToList();
+                var markerData = _context.Markers.Where(p => p.Category.Name == category).OrderByDescending(b => b.MarkerId).ToList();
                 return Json(markerData);
             }
         }

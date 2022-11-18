@@ -13,12 +13,14 @@ const resetAddress = document.getElementById("resetAddress");
 const markerList = document.querySelectorAll(".marker-card");
 const mapContainer = document.querySelector('#myMap');
 const markerLinks = document.querySelectorAll('#marker-link');
+const addressInput = document.querySelector('#address');
 
 let map;
 let infobox;
 let searchManager;
 let dataReturn = [];
 let stringPathName;
+let markerCounter = 0;
 
 //Initalize map for page load
 function GetMap() {
@@ -51,11 +53,15 @@ function GetMap() {
 
     //Map Click Handler
     Microsoft.Maps.Events.addHandler(map, 'click', function (event) {
+        
         stringPathName = window.location.pathname;
-        if (stringPathName == "/Markers/Create") {
+        
+        if (stringPathName == "/Markers/Create" && markerCounter == 0) {
             if (event.targetType == "map") {
                 CreateMarkerMapClick(event, map);
+                markerCounter = 1;
             };
+            
         };
     });
 
@@ -66,7 +72,14 @@ function GetMap() {
 
     //Current location button listener
     currentButton.addEventListener('click', function () {
-        CurrentLocation(map);
+        if (markerCounter == 0) {
+            
+        } else {
+            if (confirm("Clear current marker?") == true) {
+                DeleteLastMarker(map);
+                CurrentLocation(map);
+            }
+        };
     });
 
     //Reverse Geocode button
@@ -101,18 +114,9 @@ function CreateMarker(location, map) {
         draggable: true
     });
     map.entities.push(pushpin);
+    markerCounter = 1;
 
     //Create page marker click handler
-    Microsoft.Maps.Events.addHandler(pushpin, 'click', function (e) {
-        for (let i = map.entities.getLength() - 1; i >= 0; i--) {
-            let pushpin = map.entities.get(i);
-            if (pushpin == e.target) {
-                map.entities.remove(pushpin);
-                ClearInput();
-            };
-        };
-    });
-
     Microsoft.Maps.Events.addHandler(pushpin, 'dragend', function (e) {
         CreateMarkerMapClick(e, map);
     });
@@ -121,7 +125,9 @@ function CreateMarker(location, map) {
 //Function to drop marker on map click
 function CreateMarkerMapClick(event, map) {
     //Send marker info to marker function
-    CreateMarker(event.location, map);
+    if (markerCounter == 0) { 
+        CreateMarker(event.location, map);
+    };
     //Set input boxes to coordinates values
     latitudeInput.value = event.location.latitude;
     longitudeInput.value = event.location.longitude;
@@ -133,10 +139,12 @@ function DeleteLastMarker(map) {
     //reset coordinates and address input and remove last marker
     ClearInput();
     map.entities.pop();
+    markerCounter = 0;
 };
 
 //Function for currentLocation button
 function CurrentLocation(map) {
+    addressInput.value = "Loading";
     navigator.geolocation.getCurrentPosition(function (position) {
         let loc = new Microsoft.Maps.Location(position.coords.latitude, position.coords.longitude);
         //Add a pushpin at the user's location.
@@ -147,6 +155,8 @@ function CurrentLocation(map) {
         latitudeInput.value = position.coords.latitude;
         longitudeInput.value = position.coords.longitude;
         ReverseGeoCode(map);
+    }, function () {
+        addressInput.value = "Can't get location, check device settings.";
     });
 };
 
