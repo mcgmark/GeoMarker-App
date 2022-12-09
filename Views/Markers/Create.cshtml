@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Create Marker : GeoMarker";
     ViewData["Heading"] = "Create Marker";
-    ViewData["Content"] = "You can start by tapping on the map to drop a marker, type an address, or get your current location by clicking the button.";
+    ViewData["Content"] = "You can start by tapping on the map, typing an address, or get your current location. You can reposition the marker by dragging it.";
 }
 
 <div class="pb-5">
@@ -22,7 +22,7 @@
                             <div class="form-group col-11 mb-3">
                                 <label asp-for="Address" class="control-label mb-1"></label>
                                 <div id="searchBoxContainer"><input asp-for="Address" class="form-control-lg rounded-0 border-3 border-top-0 border-start-0 border-end-0 border-primary w-100" id="address" /></div>
-                                <small id="input-tip" class="form-text text-muted">Try typing a location, address, business name.</small>
+                                <small id="input-tip" class="form-text text-muted">Start typing an address or landmark and pick the correct location from the suggested list.</small>
                                 <span asp-validation-for="Address" class="text-danger"></span>
                             </div>
                         </div>

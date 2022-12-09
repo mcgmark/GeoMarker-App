@@ -59,7 +59,6 @@ function GetMap() {
         if (stringPathName == "/Markers/Create" && markerCounter == 0) {
             if (event.targetType == "map") {
                 CreateMarkerMapClick(event, map);
-                markerCounter = 1;
             };
             
         };
@@ -73,7 +72,7 @@ function GetMap() {
     //Current location button listener
     currentButton.addEventListener('click', function () {
         if (markerCounter == 0) {
-            
+            CurrentLocation(map);
         } else {
             if (confirm("Clear current marker?") == true) {
                 DeleteLastMarker(map);
@@ -114,20 +113,17 @@ function CreateMarker(location, map) {
         draggable: true
     });
     map.entities.push(pushpin);
-    markerCounter = 1;
 
     //Create page marker click handler
     Microsoft.Maps.Events.addHandler(pushpin, 'dragend', function (e) {
-        CreateMarkerMapClick(e, map);
+            CreateMarkerMapClick(e, map);
     });
+
+    markerCounter = 1;
 };
 
 //Function to drop marker on map click
 function CreateMarkerMapClick(event, map) {
-    //Send marker info to marker function
-    if (markerCounter == 0) { 
-        CreateMarker(event.location, map);
-    };
     //Set input boxes to coordinates values
     latitudeInput.value = event.location.latitude;
     longitudeInput.value = event.location.longitude;
@@ -136,10 +132,12 @@ function CreateMarkerMapClick(event, map) {
 
 //Function for reset button
 function DeleteLastMarker(map) {
-    //reset coordinates and address input and remove last marker
-    ClearInput();
-    map.entities.pop();
-    markerCounter = 0;
+    if (markerCounter == 1) { 
+        //reset coordinates and address input and remove last marker
+        ClearInput();
+        map.entities.pop();
+        markerCounter = 0;
+    };
 };
 
 //Function for currentLocation button
@@ -173,6 +171,9 @@ function ReverseGeoCode(map) {
                 //Marker(reverseGeocodeRequestOptions.location, map);
                 document.getElementById("address").value = answer.address.formattedAddress;
             }
+        };
+        if (markerCounter == 0) {
+            CreateMarker(reverseGeocodeRequestOptions.location, map);
         };
         searchManager.reverseGeocode(reverseGeocodeRequestOptions);
     });

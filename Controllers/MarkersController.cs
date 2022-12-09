@@ -165,23 +165,27 @@ namespace GeoMarker.Controllers
             return View(marker);
         }
 
+
+
+
         // GET: Markers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Markers == null)
             {
-                return NotFound();
+                return View("404");
             }
 
             var marker = await _context.Markers
                 .Include(m => m.Category)
                 .FirstOrDefaultAsync(m => m.MarkerId == id);
+
             if (marker == null)
             {
-                return NotFound();
+                return View("404");
             }
 
-            return View(marker);
+            return View("Delete", marker);
         }
 
         // POST: Markers/Delete/5
@@ -193,7 +197,9 @@ namespace GeoMarker.Controllers
             {
                 return Problem("Entity set 'ApplicationDbContext.Markers'  is null.");
             }
+
             var marker = await _context.Markers.FindAsync(id);
+
             if (marker != null)
             {
                 _context.Markers.Remove(marker);
@@ -202,6 +208,11 @@ namespace GeoMarker.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+
+
+
+
 
         private bool MarkerExists(int id)
         {

@@ -12,7 +12,6 @@ namespace GeoMarker.Models
     {
         public int MarkerId { get; set; }
 
-
         public string UserName { get; set; }
 
         [Required]
