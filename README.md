@@ -24,4 +24,4 @@ This app is the semester project for Georgian College Comp2084 Server-Side Scrip
 This was built on the ASP.Net platform and implements user input, user authentication/authorization, MSSQL database CRUD, JSON API, and Bing Map API. This project also implements Javascript and Bootstrap.
 
 ---
-### Live site: https://www.geomarker.ca/
+### Live site: https://mcgmark-001-site1.dtempurl.com
